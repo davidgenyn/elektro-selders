@@ -1,0 +1,36 @@
+seo:
+  titel: Diensten – Installatie, storingen, keuring, laadpalen
+  omschrijving: "Alle elektriciteitswerken in Achel en Noord-Limburg: nieuwbouw, renovatie, zekeringkast, storingen 24/7, keuring, laadpaal, zonnepanelen en domotica."
+intro: Van een los stopcontact tot een volledige nieuwbouwinstallatie. Alles volgens het AREI, met vaste prijs vooraf.
+groepen:
+  - id: installatie
+    titel: Installatie
+    tekst: Wij leggen de volledige elektrische installatie aan voor nieuwbouw en renovatie, en vervangen verouderde zekeringkasten. U krijgt een schema en een keuringsattest.
+    items:
+      - Nieuwbouw en renovatie
+      - Zekeringkast vervangen
+      - Extra stopcontacten en verlichting
+  - id: storingen
+    titel: Storingen en spoed
+    tekst: Kortsluiting, uitgevallen kring of stroompanne? Wij zijn 24/7 bereikbaar en meestal binnen het uur ter plaatse in Hamont-Achel, Pelt, Lommel en Bocholt.
+    items:
+      - 24/7 spoeddienst
+      - Kortsluiting opsporen en herstellen
+      - Elektrische keuring en opmerkingen oplossen
+  - id: energie
+    titel: Energie en toekomst
+    tekst: Laadpaal voor uw elektrische wagen, aansluiting van zonnepanelen en thuisbatterij, slimme bediening van verlichting en verwarming.
+    items:
+      - Laadpaal plaatsen en aanmelden
+      - Zonnepanelen en thuisbatterij aansluiten
+      - Domotica
+faq_titel: Veelgestelde vragen
+faq:
+  - vraag: Hoe snel zijn jullie ter plaatse bij een storing?
+    antwoord: "Bij een stroompanne of kortsluiting zijn we in Hamont-Achel, Pelt, Lommel en Bocholt meestal binnen het uur ter plaatse, ook 's avonds en in het weekend."
+  - vraag: Wat kost een elektrische keuring?
+    antwoord: De keuring gebeurt door een erkend keuringsorganisme. Wij bereiden uw installatie voor, lossen opmerkingen op en regelen de afspraak. De prijs hangt af van de grootte van de installatie; u krijgt die vooraf.
+  - vraag: Wanneer moet mijn zekeringkast vervangen worden?
+    antwoord: Als er nog schroefzekeringen in zitten, als er geen differentieelschakelaar is, of als de keuring opmerkingen gaf. Een kast ouder dan 25 jaar laten we best eens nakijken.
+  - vraag: Plaatsen jullie ook laadpalen?
+    antwoord: Ja. We bekijken eerst of uw aansluiting het aankan, plaatsen de laadpaal en regelen de aanmelding bij de netbeheerder.

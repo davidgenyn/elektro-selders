@@ -1,0 +1,14 @@
+---
+layout: base.njk
+permalink: /over-ons/
+---
+{% set seo = overons.seo %}
+<section class="pagetitle"><div class="wrap"><h1>{{ overons.titel }}</h1></div></section>
+<section class="section"><div class="wrap split">
+  <div>{{ overons.tekst | nl2br | safe }}</div>
+  <img src="{{ overons.foto }}" alt="Jan Selders" loading="lazy">
+</div></section>
+<section class="section light"><div class="wrap cijfers">
+  {% for c in overons.cijfers %}<div><strong>{{ c.getal }}</strong>{{ c.label }}</div>{% endfor %}
+</div></section>
+<section class="section"><div class="wrap"><h2>{{ overons.werkgebied_titel }}</h2><p>{{ overons.werkgebied_tekst }}</p></div></section>

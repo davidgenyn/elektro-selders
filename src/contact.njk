@@ -1,0 +1,42 @@
+---
+layout: base.njk
+permalink: /contact/
+---
+{% set seo = contact.seo %}
+<section class="pagetitle"><div class="wrap"><h1>{{ contact.titel }}</h1><p>{{ contact.intro }}</p></div></section>
+<section class="section"><div class="wrap split" style="align-items:start">
+  <div>
+    <h2>{{ contact.formulier_titel }}</h2>
+    <form class="form" id="cf">
+      <div><label for="naam">Naam</label><input id="naam" name="naam" required></div>
+      <div><label for="email">E-mail</label><input id="email" name="email" type="email" required></div>
+      <div><label for="telefoon">Telefoon</label><input id="telefoon" name="telefoon"></div>
+      <div><label for="bericht">Wat kunnen we voor u doen?</label><textarea id="bericht" name="bericht" required></textarea></div>
+      <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
+      <button class="btn" type="submit">{{ contact.formulier_knop }}</button>
+      <p id="cf-ok" class="hidden">{{ contact.bedankt }}</p>
+      <p id="cf-err" class="hidden">Verzenden mislukt. Bel ons op {{ site.telefoon }}.</p>
+    </form>
+  </div>
+  <div class="contactinfo">
+    <h2>Gegevens</h2>
+    <p><strong>{{ site.naam }}</strong></p>
+    <p>{{ site.adres }}</p>
+    <p><a href="tel:{{ site.telefoon_link }}">{{ site.telefoon }}</a></p>
+    <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p>{{ site.uren }}</p>
+    <p>Werkgebied: {{ site.werkgebied }}</p>
+  </div>
+</div></section>
+<script>
+document.getElementById('cf').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var f=e.target; if(f.website.value){return;}
+  var data={naam:f.naam.value,email:f.email.value,telefoon:f.telefoon.value,bericht:f.bericht.value,bron:'lotusflow.net'};
+  try{
+    var r=await fetch('{{ site.webhook }}',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if(!r.ok) throw new Error();
+    f.reset(); document.getElementById('cf-ok').classList.remove('hidden'); document.getElementById('cf-err').classList.add('hidden');
+  }catch(err){ document.getElementById('cf-err').classList.remove('hidden'); }
+});
+</script>

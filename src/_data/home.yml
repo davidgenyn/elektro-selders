@@ -1,0 +1,45 @@
+seo:
+  titel: Elektricien Achel – Installatie, storingen en keuring
+  omschrijving: Elektro Selders is uw elektricien in Achel en omgeving. Vaste
+    prijzen, 18 jaar ervaring, 24/7 bereikbaar bij storingen. Vraag een gratis
+    offerte.
+hero:
+  titel: Uw elektricien in Achel en omgeving
+  tekst: Installatie, storingen en keuring. Vaste prijzen, 18 jaar ervaring, 24/7
+    bereikbaar.
+  knop1_tekst: Gratis offerte
+  knop1_link: /contact/
+  knop2_tekst: Bel nu
+diensten_titel: Onze diensten
+diensten:
+  - titel: Installatie
+    tekst: Nieuwbouw, renovatie en het vervangen van uw zekeringkast. Volledig
+      volgens het AREI.
+    foto: /images/uploads/installatie.jpg
+    link: /diensten/#installatie
+  - titel: Storingen
+    tekst: 24/7 spoeddienst, kortsluiting opsporen en herstellen, elektrische keuring.
+    foto: /images/uploads/storingen.jpg
+    link: /diensten/#storingen
+  - titel: Energie
+    tekst: Laadpaal voor uw elektrische wagen, zonnepanelen aansluiten, domotica.
+    foto: /images/uploads/energie.jpg
+    link: /diensten/#energie
+review:
+  score: 4,9 op Google
+  citaat: Snel geholpen en een duidelijke prijs vooraf.
+  naam: klant uit Neerpelt
+waarom_titel: Waarom Elektro Selders
+waarom:
+  - titel: Vaste prijs vooraf
+    tekst: Geen verrassingen op de factuur.
+  - titel: Binnen het uur bij spoed
+    tekst: Dag en nacht, ook in het weekend.
+  - titel: Erkend en verzekerd
+    tekst: Gekeurd werk, volledig in orde.
+  - titel: 5 jaar garantie
+    tekst: Op al onze installaties.
+offerte:
+  titel: Een offerte nodig?
+  tekst: Gratis en vrijblijvend, binnen 2 werkdagen in uw mailbox.
+  knop_tekst: Offerte aanvragen

@@ -1,0 +1,34 @@
+---
+layout: base.njk
+permalink: /
+---
+{% set seo = home.seo %}
+<section class="hero"><div class="wrap">
+  <h1>{{ home.hero.titel }}</h1>
+  <p>{{ home.hero.tekst }}</p>
+  <div class="btns"><a class="btn" href="{{ home.hero.knop1_link }}">{{ home.hero.knop1_tekst }}</a><a class="btn outline white" href="tel:{{ site.telefoon_link }}">{{ home.hero.knop2_tekst }}</a></div>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <h2 class="center">{{ home.diensten_titel }}</h2>
+  <div class="grid3">
+  {% for d in home.diensten %}
+    <div class="card"><img src="{{ d.foto }}" alt="{{ d.titel }}" loading="lazy"><div class="body"><h3>{{ d.titel }}</h3><p>{{ d.tekst }}</p><a class="more" href="{{ d.link }}">Meer info ›</a></div></div>
+  {% endfor %}
+  </div>
+</div></section>
+
+<section class="section dark"><div class="wrap">
+  <p class="stars">★★★★★ &nbsp;{{ home.review.score }}</p>
+  <p>“{{ home.review.citaat }}” &nbsp;— {{ home.review.naam }}</p>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <h2 class="center">{{ home.waarom_titel }}</h2>
+  <div class="grid4">{% for w in home.waarom %}<div><strong>{{ w.titel }}</strong><br><span>{{ w.tekst }}</span></div>{% endfor %}</div>
+</div></section>
+
+<section class="section light"><div class="wrap offerte">
+  <div><h2>{{ home.offerte.titel }}</h2><p>{{ home.offerte.tekst }}</p></div>
+  <a class="btn" href="/contact/">{{ home.offerte.knop_tekst }}</a>
+</div></section>

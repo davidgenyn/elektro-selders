@@ -1,0 +1,167 @@
+# ---- Backend: vervang dit blok door het blok dat DecapBridge genereert bij "Add site" ----
+backend:
+  name: github
+  repo: davidgenyn/elektro-selders
+  branch: main
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /auth
+# ------------------------------------------------------------------------------------------
+
+# Lokaal testen zonder login (npm run cms): zet op true, voor publicatie weer op false
+local_backend: false
+
+locale: nl
+editor:
+  preview: false
+site_url: https://lotusflow.net
+display_url: https://lotusflow.net
+logo_url: /images/logo.png
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: paginas
+    label: "Pagina's"
+    files:
+      - name: home
+        label: "Home"
+        file: "src/_data/home.yml"
+        fields:
+          - label: "Google-instellingen"
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Paginatitel (Google)", name: titel, widget: string, hint: "Max. 60 tekens" }
+              - { label: "Omschrijving (Google)", name: omschrijving, widget: text, hint: "Max. 155 tekens" }
+          - label: "Bovenaan (hero)"
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: titel, widget: string }
+              - { label: Tekst, name: tekst, widget: text }
+              - { label: "Knop 1 tekst", name: knop1_tekst, widget: string }
+              - { label: "Knop 1 link", name: knop1_link, widget: string }
+              - { label: "Knop 2 tekst (bel)", name: knop2_tekst, widget: string }
+          - { label: "Titel diensten", name: diensten_titel, widget: string }
+          - label: "Diensten (3 kaarten)"
+            name: diensten
+            widget: list
+            min: 3
+            max: 3
+            fields:
+              - { label: Titel, name: titel, widget: string }
+              - { label: Tekst, name: tekst, widget: text }
+              - { label: Foto, name: foto, widget: image, hint: "Liggende foto, max. 1 MB" }
+              - { label: Link, name: link, widget: string }
+          - label: "Review"
+            name: review
+            widget: object
+            fields:
+              - { label: Score, name: score, widget: string }
+              - { label: Citaat, name: citaat, widget: text }
+              - { label: Naam, name: naam, widget: string }
+          - { label: "Titel waarom", name: waarom_titel, widget: string }
+          - label: "Waarom (4 punten)"
+            name: waarom
+            widget: list
+            min: 4
+            max: 4
+            fields:
+              - { label: Titel, name: titel, widget: string }
+              - { label: Tekst, name: tekst, widget: string }
+          - label: "Offerteblok"
+            name: offerte
+            widget: object
+            fields:
+              - { label: Titel, name: titel, widget: string }
+              - { label: Tekst, name: tekst, widget: text }
+              - { label: Knoptekst, name: knop_tekst, widget: string }
+
+      - name: diensten
+        label: "Diensten"
+        file: "src/_data/diensten.yml"
+        fields:
+          - label: "Google-instellingen"
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Paginatitel (Google)", name: titel, widget: string }
+              - { label: "Omschrijving (Google)", name: omschrijving, widget: text }
+          - { label: Inleiding, name: intro, widget: text }
+          - label: "Dienstgroepen"
+            name: groepen
+            widget: list
+            fields:
+              - { label: "Interne naam (geen spaties)", name: id, widget: string }
+              - { label: Titel, name: titel, widget: string }
+              - { label: Tekst, name: tekst, widget: text }
+              - { label: "Opsomming", name: items, widget: list, field: { label: Item, name: item, widget: string } }
+          - { label: "Titel vragen", name: faq_titel, widget: string }
+          - label: "Veelgestelde vragen"
+            name: faq
+            widget: list
+            fields:
+              - { label: Vraag, name: vraag, widget: string }
+              - { label: Antwoord, name: antwoord, widget: text }
+
+      - name: overons
+        label: "Over ons"
+        file: "src/_data/overons.yml"
+        fields:
+          - label: "Google-instellingen"
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Paginatitel (Google)", name: titel, widget: string }
+              - { label: "Omschrijving (Google)", name: omschrijving, widget: text }
+          - { label: Titel, name: titel, widget: string }
+          - { label: Foto, name: foto, widget: image }
+          - { label: Tekst, name: tekst, widget: text }
+          - label: "Cijfers"
+            name: cijfers
+            widget: list
+            fields:
+              - { label: Getal, name: getal, widget: string }
+              - { label: Omschrijving, name: label, widget: string }
+          - { label: "Titel werkgebied", name: werkgebied_titel, widget: string }
+          - { label: "Tekst werkgebied", name: werkgebied_tekst, widget: text }
+
+      - name: contact
+        label: "Contact"
+        file: "src/_data/contact.yml"
+        fields:
+          - label: "Google-instellingen"
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Paginatitel (Google)", name: titel, widget: string }
+              - { label: "Omschrijving (Google)", name: omschrijving, widget: text }
+          - { label: Titel, name: titel, widget: string }
+          - { label: Inleiding, name: intro, widget: text }
+          - { label: "Titel formulier", name: formulier_titel, widget: string }
+          - { label: "Knoptekst", name: formulier_knop, widget: string }
+          - { label: "Bedanktekst", name: bedankt, widget: string }
+
+  - name: instellingen
+    label: "Bedrijfsgegevens"
+    files:
+      - name: site
+        label: "Bedrijfsgegevens"
+        file: "src/_data/site.yml"
+        fields:
+          - { label: Bedrijfsnaam, name: naam, widget: string }
+          - { label: Slogan, name: slogan, widget: string }
+          - { label: Telefoon (zoals getoond), name: telefoon, widget: string }
+          - { label: "Telefoon (belnummer, bv. +3211000000)", name: telefoon_link, widget: string }
+          - { label: E-mail, name: email, widget: string }
+          - { label: Adres, name: adres, widget: string }
+          - { label: BTW-nummer, name: btw, widget: string }
+          - { label: Openingsuren, name: uren, widget: string }
+          - { label: Werkgebied, name: werkgebied, widget: string }
+          - { label: "Website-adres", name: url, widget: string }
+          - { label: "Webhook contactformulier (niet aanpassen)", name: webhook, widget: string }
+          - { label: "Toevoeging paginatitel (Google)", name: seo_titel_suffix, widget: string }
