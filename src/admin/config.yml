@@ -25,12 +25,6 @@ auth:
   last_name_claim: last_name
   avatar_url_claim: avatar_url
 
-# Better Decap + Bridge logo (optional)
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-
-# Add site links in Decap CMS (optional)
-site_url: https://elektro-selders.netlify.app
-
 # Lokaal testen zonder login (npm run cms): zet op true, voor publicatie weer op false
 local_backend: false
 
