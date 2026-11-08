@@ -37,9 +37,9 @@
 </main>
 <footer class="footer">
   <div class="wrap">
-    <div><h4>{{ site.naam }}</h4><p>{{ site.slogan }}</p><p>{{ site.adres }}<br>BTW {{ site.btw }}</p></div>
-    <div><h4>Contact</h4><ul><li><a href="tel:{{ site.telefoon_link }}">{{ site.telefoon }}</a></li><li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li><li>{{ site.uren }}</li></ul></div>
-    <div><h4>Pagina's</h4><ul><li><a href="/">Home</a></li><li><a href="/diensten/">Diensten</a></li><li><a href="/over-ons/">Over ons</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+    <div><h3>{{ site.naam }}</h3><p>{{ site.slogan }}</p><p>{{ site.adres }}<br>BTW {{ site.btw }}</p></div>
+    <div><h3>Contact</h3><ul><li><a href="tel:{{ site.telefoon_link }}">{{ site.telefoon }}</a></li><li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li><li>{{ site.uren }}</li></ul></div>
+    <div><h3>Pagina's</h3><ul><li><a href="/">Home</a></li><li><a href="/diensten/">Diensten</a></li><li><a href="/over-ons/">Over ons</a></li><li><a href="/contact/">Contact</a></li></ul></div>
   </div>
   <div class="bottom">© {{ "now" | date("yyyy") if false }}2026 {{ site.naam }} · <a href="/privacy/">Privacy</a></div>
 </footer>
