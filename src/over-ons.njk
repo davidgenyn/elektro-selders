@@ -6,7 +6,7 @@ permalink: /over-ons/
 <section class="pagetitle"><div class="wrap"><h1>{{ overons.titel }}</h1></div></section>
 <section class="section"><div class="wrap split">
   <div>{{ overons.tekst | nl2br | safe }}</div>
-  <img src="{{ overons.foto }}" alt="Jan Selders" loading="lazy">
+  {% foto overons.foto, "Jan Selders", "(max-width: 760px) 100vw, 580px" %}
 </div></section>
 <section class="section light"><div class="wrap cijfers">
   {% for c in overons.cijfers %}<div><strong>{{ c.getal }}</strong>{{ c.label }}</div>{% endfor %}
