@@ -1,8 +1,8 @@
 ---
 layout: base.njk
+seoKey: home
 permalink: /
 ---
-{% set seo = home.seo %}
 <section class="hero"><div class="wrap">
   <h1>{{ home.hero.titel }}</h1>
   <p>{{ home.hero.tekst }}</p>
@@ -13,7 +13,7 @@ permalink: /
   <h2 class="center">{{ home.diensten_titel }}</h2>
   <div class="grid3">
   {% for d in home.diensten %}
-    <div class="card">{% foto d.foto, d.titel %}<div class="body"><h3>{{ d.titel }}</h3><p>{{ d.tekst }}</p><a class="more" href="{{ d.link }}">Meer info ›</a></div></div>
+    <div class="card"><img src="{{ d.foto }}" alt="{{ d.titel }}" loading="lazy"><div class="body"><h3>{{ d.titel }}</h3><p>{{ d.tekst }}</p><a class="more" href="{{ d.link }}">Meer info ›</a></div></div>
   {% endfor %}
   </div>
 </div></section>

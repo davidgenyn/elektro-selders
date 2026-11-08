@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl-BE">
 <head>
+{% if seoKey == "home" %}{% set seo = home.seo %}{% elif seoKey == "diensten" %}{% set seo = diensten.seo %}{% elif seoKey == "overons" %}{% set seo = overons.seo %}{% elif seoKey == "contact" %}{% set seo = contact.seo %}{% else %}{% set seo = {titel: "Privacyverklaring", omschrijving: "Privacyverklaring van Elektro Selders."} %}{% endif %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ seo.titel }}{{ site.seo_titel_suffix }}</title>
