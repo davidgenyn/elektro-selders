@@ -70,7 +70,7 @@ collections:
             fields:
               - { label: Titel, name: titel, widget: string }
               - { label: Tekst, name: tekst, widget: text }
-              - { label: Foto, name: foto, widget: image, hint: "Liggende foto, max. 1 MB" }
+              - { label: Foto, name: foto, widget: image, hint: "Liggende foto; wordt automatisch verkleind" }
               - { label: Link, name: link, widget: string }
           - label: "Review"
             name: review
