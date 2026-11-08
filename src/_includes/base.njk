@@ -12,7 +12,7 @@
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 <meta property="og:type" content="website">
 <link rel="icon" href="/images/logo.png">
-<link rel="stylesheet" href="/css/style.css">
+<style>{{ "" | inlineCss | safe }}</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Electrician","name":"{{ site.naam }}","telephone":"{{ site.telefoon_link }}","email":"{{ site.email }}","url":"{{ site.url }}","address":{"@type":"PostalAddress","streetAddress":"{{ site.adres.split(',')[0] }}","postalCode":"3930","addressLocality":"Achel","addressCountry":"BE"},"areaServed":"{{ site.werkgebied }}","openingHours":"Mo-Fr 08:00-18:00"}
 </script>
@@ -20,7 +20,7 @@
 <body>
 <header class="header">
   <div class="wrap">
-    <a class="brand" href="/"><img src="/images/logo.png" alt=""><span>{{ site.naam }}</span></a>
+    <a class="brand" href="/"><img src="/images/logo.png" alt="" width="44" height="75" eleventy:ignore><span>{{ site.naam }}</span></a>
     <button class="toggle" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">&#9776;</button>
     <nav class="nav" id="nav">
       <ul>
