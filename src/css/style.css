@@ -76,3 +76,4 @@ summary{font-weight:600;cursor:pointer;color:var(--dark)}
 .footer ul{list-style:none;margin:0;padding:0}
 .footer li{margin:.25rem 0}
 .footer .bottom{border-top:1px solid rgba(255,255,255,.15);text-align:center;padding:1rem;font-size:.85rem}
+.footer .bottom a{text-decoration:underline}
