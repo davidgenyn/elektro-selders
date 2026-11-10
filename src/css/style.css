@@ -79,6 +79,7 @@ summary{font-weight:600;cursor:pointer;color:var(--dark)}
 .footer .bottom a{text-decoration:underline}
 /* cookiebanner */
 .cookie{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--dark);color:#fff;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;box-shadow:0 -2px 8px rgba(0,0,0,.2)}
+.cookie[hidden]{display:none}
 .cookie p{margin:0;max-width:60ch}
 .cookie a{color:#fff}
 .cookie div{display:flex;gap:.6rem}
