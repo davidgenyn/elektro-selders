@@ -22,8 +22,8 @@ permalink: /contact/
     <h2>Gegevens</h2>
     <p><strong>{{ site.naam }}</strong></p>
     <p>{{ site.adres }}</p>
-    <p><a href="tel:{{ site.telefoon_link }}">{{ site.telefoon }}</a></p>
-    <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p><a href="tel:{{ site.telefoon_link }}" data-umami-event="bel">{{ site.telefoon }}</a></p>
+    <p><a href="mailto:{{ site.email }}" data-umami-event="mail">{{ site.email }}</a></p>
     <p>{{ site.uren }}</p>
     <p>Werkgebied: {{ site.werkgebied }}</p>
   </div>
@@ -36,6 +36,7 @@ document.getElementById('cf').addEventListener('submit', async function(e){
   try{
     var r=await fetch('{{ site.webhook }}',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
     if(!r.ok) throw new Error();
+    if(window.umami){umami.track('formulier');}
     f.reset(); document.getElementById('cf-ok').classList.remove('hidden'); document.getElementById('cf-err').classList.add('hidden');
   }catch(err){ document.getElementById('cf-err').classList.remove('hidden'); }
 });

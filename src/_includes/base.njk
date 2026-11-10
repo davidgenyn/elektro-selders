@@ -16,6 +16,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Electrician","name":"{{ site.naam }}","telephone":"{{ site.telefoon_link }}","email":"{{ site.email }}","url":"{{ site.url }}","address":{"@type":"PostalAddress","streetAddress":"{{ site.adres.split(',')[0] }}","postalCode":"3930","addressLocality":"Achel","addressCountry":"BE"},"areaServed":"{{ site.werkgebied }}","openingHours":"Mo-Fr 08:00-18:00"}
 </script>
+{% if site.umami_id %}<script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.umami_id }}"></script>{% endif %}
 </head>
 <body>
 <header class="header">
@@ -38,10 +39,24 @@
 <footer class="footer">
   <div class="wrap">
     <div><h3>{{ site.naam }}</h3><p>{{ site.slogan }}</p><p>{{ site.adres }}<br>BTW {{ site.btw }}</p></div>
-    <div><h3>Contact</h3><ul><li><a href="tel:{{ site.telefoon_link }}">{{ site.telefoon }}</a></li><li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li><li>{{ site.uren }}</li></ul></div>
+    <div><h3>Contact</h3><ul><li><a href="tel:{{ site.telefoon_link }}" data-umami-event="bel">{{ site.telefoon }}</a></li><li><a href="mailto:{{ site.email }}" data-umami-event="mail">{{ site.email }}</a></li><li>{{ site.uren }}</li></ul></div>
     <div><h3>Pagina's</h3><ul><li><a href="/">Home</a></li><li><a href="/diensten/">Diensten</a></li><li><a href="/over-ons/">Over ons</a></li><li><a href="/contact/">Contact</a></li></ul></div>
   </div>
   <div class="bottom">© {{ "now" | date("yyyy") if false }}2026 {{ site.naam }} · <a href="/privacy/">Privacy</a></div>
 </footer>
+{% if site.google_tag %}
+<div class="cookie" id="cookie" hidden>
+  <p>Deze site gebruikt Google Analytics om bezoekersaantallen te meten. Mag dat? <a href="/privacy/">Meer info</a></p>
+  <div><button class="btn" onclick="esConsent('ja')">Aanvaarden</button><button class="btn outline white" onclick="esConsent('nee')">Weigeren</button></div>
+</div>
+<script>
+function esLoadGA(){
+  var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id={{ site.google_tag }}';document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
+}
+function esConsent(v){try{localStorage.setItem('es_consent',v);}catch(e){}document.getElementById('cookie').hidden=true;if(v==='ja')esLoadGA();}
+(function(){var c=null;try{c=localStorage.getItem('es_consent');}catch(e){}if(c==='ja'){esLoadGA();}else if(c!=='nee'){document.getElementById('cookie').hidden=false;}})();
+</script>
+{% endif %}
 </body>
 </html>

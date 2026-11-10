@@ -183,3 +183,5 @@ collections:
           - { label: "Website-adres", name: url, widget: string }
           - { label: "Webhook contactformulier (niet aanpassen)", name: webhook, widget: string }
           - { label: "Toevoeging paginatitel (Google)", name: seo_titel_suffix, widget: string }
+          - { label: "Umami website-ID (leeg = geen Umami-meting)", name: umami_id, widget: string, required: false }
+          - { label: "Google tag, bv. GTM-XXXXXXX (leeg = geen Google Analytics, geen cookiebanner)", name: google_tag, widget: string, required: false }
