@@ -38,6 +38,40 @@ media_folder: "src/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  - name: dienstpaginas
+    label: "Dienstpagina's"
+    label_singular: "Dienstpagina"
+    folder: "src/dienstpaginas"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{slug}}"
+    identifier_field: slug
+    summary: "{{titel}}"
+    sort_by: volgorde
+    fields:
+      - { label: "Adres in de URL (bv. installatie → /diensten/installatie/)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "enkel kleine letters, cijfers en streepjes"] }
+      - { label: Volgorde, name: volgorde, widget: number, value_type: int, default: 9 }
+      - { label: "Titel (H1)", name: titel, widget: string }
+      - { label: "Korte naam", name: kort, widget: string }
+      - { label: "Google-titel", name: seo_titel, widget: string }
+      - { label: "Google-omschrijving", name: seo_omschrijving, widget: text }
+      - { label: Foto, name: foto, widget: image, required: false }
+      - { label: Intro, name: intro, widget: text }
+      - label: Secties
+        name: secties
+        widget: list
+        fields:
+          - { label: Kop, name: kop, widget: string }
+          - { label: Tekst, name: tekst, widget: text }
+      - { label: "Titel van de lijst", name: items_titel, widget: string, default: "Wat we doen" }
+      - { label: Lijst, name: items, widget: list, field: { label: Punt, name: punt, widget: string } }
+      - label: Veelgestelde vragen
+        name: faq
+        widget: list
+        fields:
+          - { label: Vraag, name: vraag, widget: string }
+          - { label: Antwoord, name: antwoord, widget: text }
   - name: paginas
     label: "Pagina's"
     files:
@@ -113,6 +147,7 @@ collections:
             widget: list
             fields:
               - { label: "Interne naam (geen spaties)", name: id, widget: string }
+              - { label: "Link naar dienstpagina (bv. /diensten/installatie/)", name: link, widget: string, required: false }
               - { label: Titel, name: titel, widget: string }
               - { label: Tekst, name: tekst, widget: text }
               - { label: "Opsomming", name: items, widget: list, field: { label: Item, name: item, widget: string } }

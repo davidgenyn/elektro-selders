@@ -1,0 +1,20 @@
+---
+layout: base.njk
+---
+<section class="pagetitle"><div class="wrap"><h1>{{ titel }}</h1><p>{{ intro }}</p></div></section>
+<section class="section"><div class="wrap split" style="align-items:start">
+  <div>
+    {% for s in secties %}<h2>{{ s.kop }}</h2><p>{{ s.tekst }}</p>{% endfor %}
+  </div>
+  <div>
+    {% if foto %}<img src="{{ foto }}" alt="{{ kort }} – {{ site.naam }}" loading="lazy">{% endif %}
+    <h2 style="margin-top:1.5rem">{{ items_titel }}</h2>
+    <ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>
+  </div>
+</div></section>
+<section class="section light"><div class="wrap">
+  <h2>Veelgestelde vragen</h2>
+  {% for f in faq %}<details><summary>{{ f.vraag }}</summary><p>{{ f.antwoord }}</p></details>{% endfor %}
+  <p style="margin-top:2rem"><a class="btn" href="/contact/">Gratis offerte aanvragen</a> <a class="btn outline" href="tel:{{ site.telefoon_link }}" data-umami-event="bel">Bel {{ site.telefoon }}</a></p>
+  <p><a href="/diensten/">← Alle diensten</a></p>
+</div></section>

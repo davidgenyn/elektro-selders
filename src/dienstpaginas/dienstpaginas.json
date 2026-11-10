@@ -1,0 +1,8 @@
+{
+  "layout": "dienst.njk",
+  "tags": "dienstpagina",
+  "permalink": "/diensten/{{ slug }}/",
+  "eleventyComputed": {
+    "seoKey": "dienst"
+  }
+}

@@ -16,15 +16,15 @@ diensten:
     tekst: Nieuwbouw, renovatie en het vervangen van uw zekeringkast. Volledig
       volgens het AREI.
     foto: /images/uploads/installatie.png
-    link: /diensten/#installatie
+    link: /diensten/installatie/
   - titel: Storingen
     tekst: 24/7 spoeddienst, kortsluiting opsporen en herstellen, elektrische keuring.
     foto: /images/uploads/storing2.png
-    link: /diensten/#storingen
+    link: /diensten/storingen/
   - titel: Energie
     tekst: Laadpaal voor uw elektrische wagen, zonnepanelen aansluiten, domotica.
     foto: /images/uploads/energie.png
-    link: /diensten/#energie
+    link: /diensten/energie/
 review:
   score: 4,9 op Google
   citaat: Snel geholpen en een duidelijke prijs vooraf.

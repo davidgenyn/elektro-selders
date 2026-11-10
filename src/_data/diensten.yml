@@ -4,6 +4,7 @@ seo:
 intro: Van een los stopcontact tot een volledige nieuwbouwinstallatie. Alles volgens het AREI, met vaste prijs vooraf.
 groepen:
   - id: installatie
+    link: /diensten/installatie/
     titel: Installatie
     tekst: Wij leggen de volledige elektrische installatie aan voor nieuwbouw en renovatie, en vervangen verouderde zekeringkasten. U krijgt een schema en een keuringsattest.
     items:
@@ -11,6 +12,7 @@ groepen:
       - Zekeringkast vervangen
       - Extra stopcontacten en verlichting
   - id: storingen
+    link: /diensten/storingen/
     titel: Storingen en spoed
     tekst: Kortsluiting, uitgevallen kring of stroompanne? Wij zijn 24/7 bereikbaar en meestal binnen het uur ter plaatse in Hamont-Achel, Pelt, Lommel en Bocholt.
     items:
@@ -18,6 +20,7 @@ groepen:
       - Kortsluiting opsporen en herstellen
       - Elektrische keuring en opmerkingen oplossen
   - id: energie
+    link: /diensten/energie/
     titel: Energie en toekomst
     tekst: Laadpaal voor uw elektrische wagen, aansluiting van zonnepanelen en thuisbatterij, slimme bediening van verlichting en verwarming.
     items:

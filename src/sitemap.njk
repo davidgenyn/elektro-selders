@@ -7,4 +7,7 @@ eleventyExcludeFromCollections: true
 {%- for p in ['/', '/diensten/', '/over-ons/', '/contact/'] %}
 <url><loc>{{ site.url }}{{ p }}</loc></url>
 {%- endfor %}
+{%- for d in collections.dienstpagina %}
+<url><loc>{{ site.url }}{{ d.url }}</loc></url>
+{%- endfor %}
 </urlset>
