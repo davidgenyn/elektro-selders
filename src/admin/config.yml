@@ -185,3 +185,4 @@ collections:
           - { label: "Toevoeging paginatitel (Google)", name: seo_titel_suffix, widget: string }
           - { label: "Umami website-ID (leeg = geen Umami-meting)", name: umami_id, widget: string, required: false }
           - { label: "Google tag, bv. GTM-XXXXXXX (leeg = geen Google Analytics, geen cookiebanner)", name: google_tag, widget: string, required: false }
+          - { label: "Verbergen voor Google (noindex) – enkel voor demo/testsites", name: noindex, widget: boolean, default: false, required: false }

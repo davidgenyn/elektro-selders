@@ -12,3 +12,4 @@ webhook: https://lotusserver.tail8f5562.ts.net/webhook/elektro-selders-contact
 seo_titel_suffix: " | Elektro Selders Achel"
 umami_id: 3128268b-5f0e-4544-890c-76da63d4afc7
 google_tag: GTM-5TJNBBFF
+noindex: true

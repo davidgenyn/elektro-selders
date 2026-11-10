@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ seo.titel }}{{ site.seo_titel_suffix }}</title>
 <meta name="description" content="{{ seo.omschrijving }}">
+{% if site.noindex %}<meta name="robots" content="noindex">{% endif %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <meta property="og:title" content="{{ seo.titel }}">
 <meta property="og:description" content="{{ seo.omschrijving }}">
