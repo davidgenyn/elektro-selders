@@ -5,11 +5,11 @@ telefoon_link: "+3211000000"
 email: info@lotusflow.net
 adres: Hamontstraat 1, 3930 Achel
 btw: BE 0000.000.000
-uren: "Ma–vr 8:00–18:00 · Spoed 24/7"
+uren: Ma–vr 8:00–18:00 · Spoed 24/7
 werkgebied: Hamont-Achel, Pelt, Lommel, Bocholt, Peer
 url: https://lotusflow.net
 webhook: https://lotusserver.tail8f5562.ts.net/webhook/elektro-selders-contact
 seo_titel_suffix: " | Elektro Selders Achel"
 umami_id: 3128268b-5f0e-4544-890c-76da63d4afc7
 google_tag: GTM-5TJNBBFF
-noindex: true
+noindex: false
