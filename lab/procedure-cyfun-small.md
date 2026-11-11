@@ -52,7 +52,7 @@ Wat het CCB vraagt: alleen ondersteunde software, automatisch bijgewerkt.
 4. Schermafbeelding van "U bent up-to-date" met datum voor het dossier.
 5. Klok en tijdzone nakijken (Instellingen > Tijd en taal). Een verkeerde tijd geeft fouten bij updates en certificaten.
 
-Ook de andere software van de klant valt hieronder (browser, boekhoudpakket, Office). Die lijst noteren en nakijken.
+Ook de andere software van de klant valt hieronder (browser, boekhoudpakket, Office). Die lijst noteren en nakijken. Voor wat geen automatische update heeft (router-firmware, sommige boekhoudpakketten): een vaste maandelijkse controledag afspreken en in het dossier zetten.
 
 ## Punt 3 — Antivirus
 
@@ -62,7 +62,9 @@ Wat het CCB vraagt: een antivirus die actief is en automatisch bijwerkt.
 2. Instellingen beheren: realtime-beveiliging, cloudbeveiliging, automatische verzending van voorbeelden en **manipulatiebeveiliging (Tamper Protection)** allemaal aan.
 3. Uitsluitingen: lijst leeg, of elke regel verklaard. "C:\" of "Downloads" als uitsluiting is een gat.
 4. Snelle scan uitvoeren; resultaat en duur noteren.
-5. Waar je nakijkt wat Defender gedaan heeft: Windows-beveiliging > Beveiligingsgeschiedenis, en Logboeken > Toepassingen en services > Microsoft > Windows > Windows Defender > Operational (ID 1116 detectie, 1117 actie, 5001/5004 realtime uit/aan).
+5. AutoPlay uitzetten: Instellingen > Bluetooth en apparaten > Automatisch afspelen > schakelaar uit. Small vraagt dit uitdrukkelijk (AutoRun voor verwisselbare media).
+6. Regels meegeven aan de klant: geen USB-media delen tussen privé en werk, onbekende sticks niet insteken, geen illegale software.
+7. Waar je nakijkt wat Defender gedaan heeft: Windows-beveiliging > Beveiligingsgeschiedenis, en Logboeken > Toepassingen en services > Microsoft > Windows > Windows Defender > Operational (ID 1116 detectie, 1117 actie, 5001/5004 realtime uit/aan).
 
 ## Punt 5 — Back-up
 
@@ -98,7 +100,8 @@ Wat het CCB vraagt: MFA op alle accounts waar het kan, verplicht op beheerdersac
 ## Punt 7 — Slotaanbevelingen
 
 1. Incidentcontactblad: sjabloon in `dossier/incidentcontactblad-sjabloon.md`. Klant vult in, drukt af, legt bij back-upschijf en back-upcodes. Herziening elke zes maanden.
-2. Fysieke beveiliging: als advies meegeven en noteren (toestellen niet in het voertuig, back-up in afgesloten kast, sleutels en alarmcodes op naam).
+2. Fysieke beveiliging: als advies meegeven en noteren (toestellen niet in het voertuig, back-up in afgesloten kast, sleutels en alarmcodes op naam, "Zoek mijn telefoon" aan op mobiele toestellen).
+3. Verwijzen naar de CCB-gids voor incidentbeheer (Cyber Security Incident Management Guide, ccb.belgium.be) als de klant verder wil dan het contactblad.
 
 ## Valkuilen (vervolg, 11-11-2026)
 
@@ -114,6 +117,13 @@ Wat het CCB vraagt: MFA op alle accounts waar het kan, verplicht op beheerdersac
 - `bcdedit` met accolades in PowerShell faalt stil; in de klassieke Opdrachtprompt uitvoeren.
 - Guest Additions installeren na de eerste start (Devices > Insert Guest Additions CD image, dan via Deze pc het dvd-station openen; Windows start de cd niet vanzelf). Gedeeld klembord: Devices > Shared Clipboard > Bidirectional.
 - Snapshot nemen vóór elke test (Machine > Take Snapshot). De 90-dagen-evaluatie van Windows 11 Enterprise verloopt op 9 februari 2027; dan opnieuw installeren.
+
+## Dossier: wat erin moet
+
+- Per punt: nulmeting, maatregel met datum, bewijs (bestandsnaam in `bewijs/`), en een toets van elke eis uit het Small-document tegen het dossier.
+- Elke afspraak die geen instelling is (back-uproutine, controledag, USB-regel, contactblad) met naam en moment.
+- Geen wachtwoorden, sleutels, telefoonnummers of serienummers; schermafbeeldingen afdekken vóór ze in de repo gaan.
+- Bewijs vastleggen op het moment zelf; een restore-test zonder schermafbeelding is later niet meer te maken.
 
 ## Bron
 
