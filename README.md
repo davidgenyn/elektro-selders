@@ -62,6 +62,9 @@ src/_data/site.yml      bedrijfsgegevens, webhook, Umami-ID, Google tag, noindex
 src/_data/home.yml, diensten.yml, overons.yml, contact.yml   inhoud per pagina (+ seo: titel/omschrijving)
 src/_includes/base.njk  layout: head (SEO, OG, schema.org Electrician, Umami), header, footer, cookiebanner
 src/index.njk, diensten.njk, over-ons.njk, contact.njk, privacy.njk, sitemap.njk
+src/dienstpaginas/*.md   drie dienstpagina's (installatie, storingen, energie) → /diensten/<slug>/; CMS-collectie "Dienstpagina's"
+src/_includes/dienst.njk layout van een dienstpagina (secties, lijst, FAQ + FAQPage-schema)
+dossier/, lab/           CyFun Small-documenten (cybersecurity-spoor, los van de website; niet gebouwd)
 src/admin/config.yml    Decap-configuratie (collecties, Nederlandse labels, DecapBridge-backend)
 src/css/style.css       huisstijl wit/blauw (#0F2F5C, #1E5AA8, #E8F0FA)
 src/images/logo.png     logo; src/images/uploads/  foto's van de klant (via CMS)
@@ -103,12 +106,35 @@ Cookiebanner: eigen code in `base.njk`; keuze in `localStorage` (`es_consent`). 
 | schema.org `Electrician` (naam, adres Achel, telefoon, uren, werkgebied) | ✅ |
 | robots.txt + sitemap.xml | ✅ |
 | PageSpeed mobiel 10 nov 2026: Prestaties 100, Toegankelijkheid 100 (na fixes), Praktische tips 100, SEO 100 | ✅ |
-| **noindex** (demo niet in Google) | ✅ aan via Bedrijfsgegevens → "Verbergen voor Google"; **bij een echte klant uitzetten** |
-| Search Console | nog niet aangemaakt (domein-property lotusflow.net, TXT bij Vimexx, sitemap indienen) |
+| FAQPage-schema op Diensten en de drie dienstpagina's | ✅ |
+| **noindex** | schakelaar in Bedrijfsgegevens → "Verbergen voor Google". Voor de vindbaarheidstest **uit** (10 nov 2026); na de demo weer **aan** |
+| Search Console | ✅ domein-property lotusflow.net (TXT bij Vimexx), sitemap ingediend, indexering aangevraagd 10 nov; eerste dag meldde Google "Blocked by robots.txt" = cache van de oude WordPress-robots.txt, lost zich binnen 24 u op → Request again |
+| Bing Webmaster Tools | ✅ lotusflow.contact@gmail.com, import uit Search Console, verificatie via CNAME `84604c254ce6a627420a99c3b2a7f780 → verify.bing.com` bij Vimexx, sitemap gekend. Tabblad "AI Performance" toont later vermeldingen in Copilot/ChatGPT |
 | Google Bedrijfsprofiel | niet mogelijk voor een fictief bedrijf; **belangrijkste lokale factor** voor echte klanten |
 | Per-gemeente-pagina's (Elektricien Pelt, Lommel, …) | optie voor echte klanten, niet in de demo |
 
 Snelheidsles: foto's van 1–3 MB zonder `width/height` gaven score 75; `@11ty/eleventy-img` (automatisch webp + srcset) en inline CSS brachten het op 100. Foto's van de klant mogen dus groot zijn; de build verkleint ze.
+
+### GEO (vindbaarheid in AI-antwoorden)
+
+| Wat | Status |
+|---|---|
+| Google AI Overviews gebruiken de Google-index | zelfde als SEO |
+| ChatGPT-zoeken en Copilot gebruiken de Bing-index | Bing Webmaster Tools ✅ |
+| AI-crawlers (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended) | uitdrukkelijk toegelaten in robots.txt ✅ |
+| Feitelijke vraag-antwoordinhoud + FAQPage-schema | ✅ |
+| Consistente bedrijfsgegevens op elke pagina (schema.org Electrician) | ✅ |
+| Vermeldingen elders (Bedrijfsprofiel, gidsen) | niet mogelijk voor een fictief bedrijf |
+| llms.txt | niet gedaan: geen bewijs dat grote AI's het gebruiken |
+| Meting (na 2–4 weken): "elektricien in Achel" vragen aan ChatGPT, Perplexity, Google; Bing → AI Performance | te doen |
+
+Eerlijke verwachting: zonder Bedrijfsprofiel en zonder vermeldingen elders haalt een nieuw domein in 1–2 maanden geen eerste pagina; wat je wél ziet is of en hoe de site opgenomen wordt.
+
+### Onvindbaar maken na de demo
+
+1. Bedrijfsgegevens → "Verbergen voor Google" **aan** → Publiceer.
+2. Search Console → Removals → tijdelijke verwijdering van `lotusflow.net` (6 maanden). Bing → Block URLs.
+3. Netlify-project verwijderen, DNS bij Vimexx terugzetten, Netlify → Free Plan.
 
 ## 7. Lokaal werken (optioneel)
 
@@ -124,7 +150,6 @@ npm run cms
 | Punt | Status |
 |---|---|
 | n8n-workflow voor het contactformulier (Webhook → e-mail) | later |
-| Search Console | te doen |
 | WordPress.com Premium opzeggen | vóór 26 nov 2026 |
 | Klantenhandleiding (apart document) | te schrijven |
 | Portfolio-screenshots voor weblotus.be | te maken vóór de site offline gaat |

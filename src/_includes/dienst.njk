@@ -12,6 +12,7 @@ layout: base.njk
     <ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>
   </div>
 </div></section>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in faq %}{"@type":"Question","name":{{ f.vraag | dump | safe }},"acceptedAnswer":{"@type":"Answer","text":{{ f.antwoord | dump | safe }}}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
 <section class="section light"><div class="wrap">
   <h2>Veelgestelde vragen</h2>
   {% for f in faq %}<details><summary>{{ f.vraag }}</summary><p>{{ f.antwoord }}</p></details>{% endfor %}
