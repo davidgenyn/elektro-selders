@@ -49,7 +49,7 @@ Schema van de opstelling: `schema-lab.html`.
 | 5 | Bestandsgeschiedenis (File History) aan naar externe schijf Elements; eerste kopie 20:13; omvat Documenten, Bureaublad, Afbeeldingen, Muziek, Video's | 11-11-2026 | `bewijs/2026-11-11_p5_file-history-aan.png` |
 | 5 | Restore getest: bestand verwijderd (inclusief prullenbak) en teruggezet uit File History | 11-11-2026 | Schermafbeelding nog toe te voegen |
 | 5 | Schijf veilig verwijderd en losgekoppeld (offline kopie) | 11-11-2026 | — |
-| 1 | Tweestapsverificatie op de mailbox, methode authenticator-app (Microsoft Authenticator); back-upcodes offline bewaard door de klant | 11-11-2026 | Schermafbeelding "2-Step Verification: On" nog toe te voegen |
+| 1 | Tweestapsverificatie op de mailbox, methode authenticator-app (Microsoft Authenticator); back-upcodes offline bewaard door de klant | 11-11-2026 | `bewijs/2026-11-11_p1_gmail-2-step-verification-on.png` |
 | 7 | Incidentcontactblad opgesteld (sjabloon), af te drukken en in te vullen door de klant | 11-11-2026 | `incidentcontactblad-sjabloon.md` |
 
 ## 4. Zelfevaluatie CyFun Small
@@ -78,4 +78,4 @@ Schema van de opstelling: `schema-lab.html`.
 
 - `schema-lab.html`: schema van de opstelling.
 - `incidentcontactblad-sjabloon.md`: sjabloon voor punt 7.
-- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: restore-test, 2-Step Verification On, en de routerschermen van 10-11-2026.
+- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: restore-test en de routerschermen van 10-11-2026.
