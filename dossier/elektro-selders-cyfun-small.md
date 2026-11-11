@@ -43,7 +43,7 @@ Schema van de opstelling: `schema-lab.html`.
 | 4 | Gastnetwerk ElektroSelders-Gast, toegang tot intranet uit, 2,4 en 5 GHz | 10-11-2026 | Schermafbeelding Gastnetwerk (sleutel afgedekt) |
 | 4 | WPS uitgeschakeld | 10-11-2026 | Schermafbeelding Draadloos > WPS |
 | 4 | Gasttest: routeradres onbereikbaar vanaf gastnetwerk, internet werkt | 10-11-2026 | Schermafbeelding mislukte verbinding |
-| 2 | Windows Update uitgevoerd tot "You're up to date"; automatische updates aan (standaard) | 11-11-2026 | Schermafbeelding Windows Update nog toe te voegen |
+| 2 | Windows Update uitgevoerd tot "You're up to date"; automatische updates aan (standaard) | 11-11-2026 | `bewijs/2026-11-11_p2_windows-update-up-to-date.png` |
 | 3 | Defender nagekeken: realtime, cloudbescherming, sample submission en Tamper Protection aan; geen uitsluitingen; Quick scan uitgevoerd | 11-11-2026 | `bewijs/2026-11-11_p3_defender-instellingen-1.png`, `…-2-tamper.png` |
 | 6 | Beheerdersaccount `labadmin` enkel voor beheer; dagelijks account `David` als Standard user; account aangemaakt lokaal, zonder Microsoft-account | 11-11-2026 | `bewijs/2026-11-11_p6_david-standard-user.png`, `…-geen-accountbeheer.png` |
 | 5 | Bestandsgeschiedenis (File History) aan naar externe schijf Elements; eerste kopie 20:13; omvat Documenten, Bureaublad, Afbeeldingen, Muziek, Video's | 11-11-2026 | `bewijs/2026-11-11_p5_file-history-aan.png` |
@@ -78,4 +78,4 @@ Schema van de opstelling: `schema-lab.html`.
 
 - `schema-lab.html`: schema van de opstelling.
 - `incidentcontactblad-sjabloon.md`: sjabloon voor punt 7.
-- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: Windows Update up-to-date, restore-test, 2-Step Verification On, en de routerschermen van 10-11-2026.
+- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: restore-test, 2-Step Verification On, en de routerschermen van 10-11-2026.
