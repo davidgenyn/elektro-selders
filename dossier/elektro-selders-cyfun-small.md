@@ -47,7 +47,7 @@ Schema van de opstelling: `schema-lab.html`.
 | 3 | Defender nagekeken: realtime, cloudbescherming, sample submission en Tamper Protection aan; geen uitsluitingen; Quick scan uitgevoerd | 11-11-2026 | `bewijs/2026-11-11_p3_defender-instellingen-1.png`, `…-2-tamper.png` |
 | 6 | Beheerdersaccount `labadmin` enkel voor beheer; dagelijks account `David` als Standard user; account aangemaakt lokaal, zonder Microsoft-account | 11-11-2026 | `bewijs/2026-11-11_p6_david-standard-user.png`, `…-geen-accountbeheer.png` |
 | 5 | Bestandsgeschiedenis (File History) aan naar externe schijf Elements; eerste kopie 20:13; omvat Documenten, Bureaublad, Afbeeldingen, Muziek, Video's | 11-11-2026 | `bewijs/2026-11-11_p5_file-history-aan.png` |
-| 5 | Restore getest: bestand verwijderd (inclusief prullenbak) en teruggezet uit File History | 11-11-2026 | Schermafbeelding nog toe te voegen |
+| 5 | Restore getest: bestand verwijderd (inclusief prullenbak) en teruggezet uit File History | 11-11-2026 | Geen schermafbeelding; restore uitgevoerd en vastgesteld door de dienstverlener op 11-11-2026. Volgende keer vastleggen met het venster "Restore personal files" open. |
 | 5 | Schijf veilig verwijderd en losgekoppeld (offline kopie) | 11-11-2026 | — |
 | 1 | Tweestapsverificatie op de mailbox, methode authenticator-app (Microsoft Authenticator); back-upcodes offline bewaard door de klant | 11-11-2026 | `bewijs/2026-11-11_p1_gmail-2-step-verification-on.png` |
 | 7 | Incidentcontactblad opgesteld (sjabloon), af te drukken en in te vullen door de klant | 11-11-2026 | `incidentcontactblad-sjabloon.md` |
@@ -78,4 +78,4 @@ Schema van de opstelling: `schema-lab.html`.
 
 - `schema-lab.html`: schema van de opstelling.
 - `incidentcontactblad-sjabloon.md`: sjabloon voor punt 7.
-- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: restore-test en de routerschermen van 10-11-2026.
+- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: de routerschermen van 10-11-2026 (punt 4, maatregelen en nulmeting); die zijn bij de dienstverlener en worden toegevoegd met wachtwoordvelden afgedekt.
