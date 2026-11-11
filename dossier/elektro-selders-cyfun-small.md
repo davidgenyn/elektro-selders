@@ -38,9 +38,9 @@ Schema van de opstelling: `schema-lab.html`.
 | Punt | Maatregel | Datum | Bewijs |
 |---|---|---|---|
 | 4 | Fabrieksreset, beheerdersnaam en -wachtwoord gewijzigd (niet "admin") | 10-11-2026 | Schermafbeelding aanmeldpagina wizard (wachtwoord afgedekt) |
-| 4 en 2 | Firmware bijgewerkt naar 3.0.0.4.386_53370 | 10-11-2026 | Schermafbeelding Netwerkkaart met firmwareversie |
-| 4 | Kantoorwifi ElektroSelders, WPA2/WPA3-Personal, AES | 10-11-2026 | Schermafbeelding Draadloos > Algemeen (sleutel afgedekt) |
-| 4 | Gastnetwerk ElektroSelders-Gast, toegang tot intranet uit, 2,4 en 5 GHz | 10-11-2026 | Schermafbeelding Gastnetwerk (sleutel afgedekt) |
+| 4 en 2 | Firmware bijgewerkt naar 3.0.0.4.386_53370 | 10-11-2026 | `bewijs/2026-11-10_p4_netwerkkaart-firmware-wpa.png` |
+| 4 | Kantoorwifi ElektroSelders, WPA2/WPA3-Personal, AES | 10-11-2026 | `bewijs/2026-11-10_p4_draadloos-algemeen.png` (sleutel afgedekt) |
+| 4 | Gastnetwerk ElektroSelders-Gast, toegang tot intranet uit, 2,4 en 5 GHz | 10-11-2026 | `bewijs/2026-11-10_p4_gastnetwerk.png` (sleutels afgedekt) |
 | 4 | WPS uitgeschakeld | 10-11-2026 | Schermafbeelding Draadloos > WPS |
 | 4 | Gasttest: routeradres onbereikbaar vanaf gastnetwerk, internet werkt | 10-11-2026 | Schermafbeelding mislukte verbinding |
 | 2 | Windows Update uitgevoerd tot "You're up to date"; automatische updates aan (standaard) | 11-11-2026 | `bewijs/2026-11-11_p2_windows-update-up-to-date.png` |
@@ -100,4 +100,4 @@ Elke eis uit het Small-document, met wat er in dit dossier tegenover staat. Bron
 
 - `schema-lab.html`: schema van de opstelling.
 - `incidentcontactblad-sjabloon.md`: sjabloon voor punt 7.
-- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Nog toe te voegen: de routerschermen van 10-11-2026 (punt 4, maatregelen en nulmeting); die zijn bij de dienstverlener en worden toegevoegd met wachtwoordvelden afgedekt.
+- `bewijs/`: schermafbeeldingen van 11-11-2026 (bestandsnaam = datum, punt, onderwerp). Van 10-11-2026 zijn de drie kernschermen van de router opgenomen (firmware en WPA, Draadloos > Algemeen, Gastnetwerk). De overige routerschermen (label, wizard, WPS, gasttest) en de nulmeting zijn bij de dienstverlener en niet in dit dossier.
