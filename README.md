@@ -201,14 +201,19 @@ npm run cms
 
 ## 9. Afbouw na de demo (site onvindbaar maken en kosten stoppen)
 
-| # | Doe | Effect |
-|---|---|---|
-| 1 | Portfolio-screenshots maken voor weblotus.be | vóór alles |
-| 2 | Bedrijfsgegevens → "Verbergen voor Google" **aan** → Publiceer | `noindex` op elke pagina; Google en Bing laten de site vallen bij de volgende crawl (dagen) |
-| 3 | Search Console → Removals → tijdelijke verwijdering `lotusflow.net`; Bing → Block URLs | meteen uit de resultaten (6 maanden) |
-| 4 | Netlify → project verwijderen; Usage & billing → Billing details → Free Plan | site offline, $9/mnd stopt (vóór een maandgrens: 10 dec, 10 jan, …) |
-| 5 | Vimexx → DNS: A-record en CNAME van Netlify verwijderen; TXT (Google) en CNAME (Bing) mogen weg | domein vrij |
-| 6 | Umami-website en GA-property mogen blijven (gratis) of verwijderd worden | – |
+| # | Doe | Effect | Uitgevoerd |
+|---|---|---|---|
+| 1 | Portfolio-screenshots maken (7 pagina's × desktop/mobiel, lokaal gebouwd uit GitHub, zonder "TestSite" en zonder cookiebanner) | materiaal voor weblotus.be | ✅ 17 nov 2026 |
+| 2 | Bedrijfsgegevens → "Verbergen voor Google" **aan** → Publiceer | `noindex` op elke pagina; Google en Bing laten de site vallen bij de volgende crawl (dagen) | ✅ 17 nov 2026 |
+| 3a | Search Console → Removals → New request → `https://lotusflow.net/` → "Remove entire site" | meteen uit Google, ±6 maanden, terug te draaien | ✅ 18 nov 2026 |
+| 3b | Bing Webmaster Tools → Configuration → Block URLs → `https://lotusflow.net/`, URL type **Directory**, Block type **URL & Cache** | uit Bing (en dus Copilot/ChatGPT-zoeken), 90 dagen; Bing mailt 8 dagen vooraf | ✅ 18 nov 2026 |
+| 4 | Netlify → project verwijderen; Usage & billing → Billing details → Free Plan | site offline, $9/mnd stopt (vóór een maandgrens: 10 dec, 10 jan, …) | nog niet |
+| 5 | Vimexx → DNS: A-record en CNAME van Netlify verwijderen; TXT (Google) en CNAME (Bing) mogen weg | domein vrij | nog niet |
+| 6 | Umami-website en GA-property mogen blijven (gratis) of verwijderd worden | – | nog niet |
+
+Les bij 3a: in een **domein**-property weigert Removals elke aanvraag met "URL not in property", ook met het volledige
+adres. Oplossing: Search Console → property-keuze → Add property → **URL prefix** → `https://lotusflow.net/`
+(automatisch geverifieerd omdat het domein al geverifieerd is) → daar Removals → Google biedt dan "Remove entire site".
 
 Repository blijft bestaan als sjabloon voor echte klanten.
 
@@ -216,11 +221,11 @@ Repository blijft bestaan als sjabloon voor echte klanten.
 
 | Punt | Status |
 |---|---|
-| Search Console: herindexering opnieuw aanvragen na de robots-cache | te doen (URL inspection → Request again) |
+| Search Console: 4 pagina's geïndexeerd op 16 nov; daarna afbouw gestart (§9) | afgesloten |
 | Link vanaf weblotus.be naar lotusflow.net | te doen |
-| GEO-meting (§7) | vanaf eind november |
+| GEO-meting (§7) | vervalt: site is sinds 18 nov uit Google en Bing gehaald |
 | n8n-workflow voor het contactformulier (Webhook → e-mail) | later |
 | Schema-velden `image`, `priceRange` | optioneel |
 | WordPress.com Premium opzeggen | **vóór 26 nov 2026** |
-| Portfolio-screenshots voor weblotus.be | vóór de afbouw |
+| Portfolio-screenshots voor weblotus.be | ✅ gemaakt 17 nov 2026 (bij David) |
 | Netlify Personal terugzetten naar Free | bij de afbouw, vóór een maandgrens |
