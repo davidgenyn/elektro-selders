@@ -8,7 +8,7 @@
 | Vorig niveau | CyFun Small, afgerond 11 november 2026 (`elektro-selders-cyfun-small.md`) |
 | Datum opmaak | 21 november 2026 |
 | Laatste bijwerking | 21 november 2026 |
-| Status | In uitvoering. Firewall (PR.IR-01.1, DE.CM-01.1) aangetoond. |
+| Status | In uitvoering. Firewall (PR.IR-01.1, DE.CM-01.1) aangetoond; kantoor-pc achter de router gehangen. |
 
 Bron: `CyFun2025_Booklet-BASIC.pdf` (CCB). Basic telt 34 eisen in 6 functies; 13 daarvan zijn key measures (Annex A). Het CCB schrijft dat de key measures op dit niveau verplicht aangepakt moeten worden.
 
@@ -34,7 +34,9 @@ Schema van de opstelling: `schema-lab.html`.
 |---|---|---|---|
 | PR.IR-01.1 | Nulmeting routerfirewall: firewall aan (standaard), DoS-beveiliging uit, pakketlogging "Geen", ping vanaf WAN uit, IPv6-firewall aan | 21-11-2026 | `bewijs/2026-11-21_fw_asus-firewall-voor.png` |
 | PR.IR-01.1, DE.AE-03.1 | Routerfirewall geconfigureerd: DoS-beveiliging aan, pakketlogging "Beide" (toegelaten en geweigerde pakketten naar het systeemlogboek), ping vanaf WAN uit | 21-11-2026 | `bewijs/2026-11-21_fw_asus-firewall-na.png` |
-| DE.CM-01.1 | Windows Defender Firewall op de kantoor-pc: aan voor de profielen Domein, Privé en Openbaar; actief profiel Openbaar | 21-11-2026 | `bewijs/2026-11-21_fw_windows-firewall-3-profielen.png` |
+| DE.CM-01.1 | Windows Defender Firewall op de kantoor-pc: aan voor de profielen Domein, Privé en Openbaar | 21-11-2026 | `bewijs/2026-11-21_fw_windows-firewall-3-profielen.png` |
+| PR.IR-01.1 | Kantoor-pc achter de router gehangen (lab: VirtualBox bridged op de wifi-kaart, voorheen NAT). Adres 192.168.50.245, gateway 192.168.50.1 (ASUS). Internet getest. | 21-11-2026 | `bewijs/2026-11-21_fw_vm-ipconfig-achter-asus.png` |
+| DE.CM-01.1 | Netwerkprofiel kantoor-pc op Privé gezet (kantoornetwerk); firewallprofiel Privé actief | 21-11-2026 | `bewijs/2026-11-21_fw_windows-netwerkprofiel-prive.png` |
 
 ## 3. Toets aan het Basic-document (CCB, CyFun 2025, versie 2025-10-01)
 
@@ -95,7 +97,7 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 ## 4. Afspraken en open punten
 
 - Verschil lab/klant: de ASUS hangt met zijn WAN-poort achter de thuisrouter (WAN IP 192.168.1.5), niet rechtstreeks aan internet. Bewijs: `bewijs/2026-11-21_asus-netwerkkaart-wan.png`. Bij een klant is de router de grens met internet.
-- Verschil lab/klant: de kantoor-pc hangt via NAT van VirtualBox aan internet en ziet zijn netwerk als Openbaar. Bij een klant hangt de pc aan het kantoornetwerk en wordt het profiel Privé; de firewall staat dan aan voor dat profiel (alle drie de profielen aangetoond).
+- Het lab-verschil uit het Small-dossier (kantoor-pc via NAT van VirtualBox, niet achter de ASUS) is op 21-11-2026 weggewerkt: de pc hangt nu achter de ASUS, zoals bij een klant.
 - Volgende stap: logs (PR.PS-04.1, DE.AE-03.1) en toegangsrechten (PR.AA-05.1, 05.2, 05.3).
 
 ## 5. Bijlagen

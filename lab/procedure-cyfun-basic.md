@@ -33,10 +33,21 @@ Geavanceerde instellingen > Firewall > tabblad Algemeen. Eerst een schermafbeeld
 
 Windows-beveiliging > Firewall en netwerkbeveiliging. Drie profielen (Domein, Privé, Openbaar), elk met "Firewall is ingeschakeld". Eén schermafbeelding van dat overzicht. Niet aanmelden als beheerder; het overzicht is leesbaar als Standard user.
 
-Let op welk profiel actief is. Achter de router van de klant is dat Privé. In het lab (VirtualBox NAT) is het Openbaar. Noteer het als lab-verschil.
+Let op welk profiel actief is. Op het kantoornetwerk hoort Privé: Instellingen > Netwerk en internet > Ethernet > Netwerkprofieltype: Privé. Lukte als Standard user zonder beheerdersvraag. Schermafbeelding.
+
+### Lab: VM achter de router hangen
+
+Met VirtualBox op NAT (standaard) zit de VM op 10.0.2.x met VirtualBox als gateway; de ASUS is dan geen firewall voor de VM. Omzetten:
+
+1. Laptop verbinden met het klantnetwerk (ElektroSelders), niet met de thuiswifi: een bridged VM volgt het netwerk van de kaart waaraan ze hangt.
+2. VM afsluiten. Settings > Network > Adapter 1 > Attached to: Bridged Adapter; Name: de wifi-kaart van de laptop (Intel Wi-Fi 6 AX201). OK.
+3. VM starten, `ipconfig`: adres 192.168.50.x, gateway 192.168.50.1. Website openen als internettest.
+
+Bridged over wifi werkte op deze laptop. Werkt het niet (adres 169.254.x.x of nog 10.0.2.x): kabel van laptop naar ASUS en de Ethernet-kaart kiezen.
 
 ## Valkuilen
 
+- Zoeken naar "what is my public ip" in Bing toont het adres van Bings eigen bot (Microsoft, msnbot), niet het jouwe. Rechtstreeks een IP-site openen (ifconfig.me). Het publieke adres van een klant is herleidbaar: afdekken in het dossier.
 - Een router die via zijn WAN-poort achter een andere router hangt (lab: thuisrouter) is niet de grens met internet. Het WAN IP op de Netwerkkaart verraadt dit (privé-adres 192.168.x.x). Bij de klant nakijken of de providerrouter nog een eigen firewall heeft; dan zijn er twee.
 - De firewallpagina van ASUS toont geen wachtwoorden of sleutels; schermafbeeldingen kunnen zonder afdekken.
 
