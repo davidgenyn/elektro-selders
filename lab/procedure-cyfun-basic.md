@@ -64,6 +64,20 @@ Systeemlogboek > Algemeen logboek. Sinds "Logged packets type: Beide" (stap 1) s
 
 Op de maandelijkse controledag: Administrative Events en Security nakijken als beheerder; routerlog nakijken op onbekende aanmeldingen en opslaan in Documenten\Logs. Staat in het dossier als afspraak.
 
+## Stap 3 — Toegangsrechten (PR.AA-05.1, 05.2, 05.3)
+
+Wat het CCB vraagt: rechten bepaald, beheerd, afgedwongen en herzien; wie heeft toegang tot bedrijfskritieke informatie en hoe; least privilege.
+
+Voor een micro-kmo is dit één document (`dossier/toegangsrechten.md`), vier delen:
+1. Tabel per systeem: account, wie, rechten, waarvoor, hoe aanmelden. Ook de wifi-sleutels en de back-upschijf, want dat zijn toegangen zonder account.
+2. Bedrijfskritieke informatie: waar staat ze, wie kan erbij, hoe.
+3. Least privilege: per account wat het níet kan.
+4. Beheer: wat gebeurt bij wijziging en vertrek; halfjaarlijkse herziening; wijzigingslog.
+
+Vul het in vanuit wat er al is: Small punt 6 (accounts), punt 4 (wifi), punt 5 (back-up), stap 2 (Standard user leest het Security-log niet). Geen wachtwoorden in het document.
+
+Eigen account voor de dienstverlener: bij deze testklant niet; je werkt met het beheerdersaccount van de klant onder toezicht. Bij een echte klant is een eigen account traceerbaar en intrekbaar, maar het is een extra account dat beheerd moet worden. Beslissing per klant, en ze staat in deel 1.
+
 ## Valkuilen
 
 - Als Standard user zie je het Security-log niet en geeft Administrative Events een foutmelding. Niet proberen te omzeilen; aanmelden als beheerder.
@@ -78,4 +92,4 @@ Op de maandelijkse controledag: Administrative Events en Security nakijken als b
 
 ## Nog niet in deze procedure
 
-Stappen 3 tot 5 volgen.
+Stappen 4 en 5 volgen.

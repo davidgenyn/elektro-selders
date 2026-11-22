@@ -8,7 +8,7 @@
 | Vorig niveau | CyFun Small, afgerond 11 november 2026 (`elektro-selders-cyfun-small.md`) |
 | Datum opmaak | 21 november 2026 |
 | Laatste bijwerking | 22 november 2026 |
-| Status | In uitvoering. Stap 1 firewall aangetoond; stap 2 logs technisch ingericht, controleroutine vastgelegd (4b), back-up van de logs open (4c). |
+| Status | In uitvoering. Stap 1 firewall aangetoond; stap 2 logs ingericht (back-up van de logs open, 4c); stap 3 toegangsrechten vastgelegd. |
 
 Bron: `CyFun2025_Booklet-BASIC.pdf` (CCB). Basic telt 34 eisen in 6 functies; 13 daarvan zijn key measures (Annex A). Het CCB schrijft dat de key measures op dit niveau verplicht aangepakt moeten worden.
 
@@ -42,6 +42,7 @@ Schema van de opstelling: `schema-lab.html`.
 | DE.AE-03.1 | Security-log nulmeting: 20 MB, oudste events overschreven, geen bewaartermijn | 22-11-2026 | `bewijs/2026-11-22_log_security-properties-voor.png` |
 | DE.AE-03.1 | Security-log ingesteld: 100 MB, "Archive the log when full, do not overwrite" (archieven in `C:\Windows\System32\winevt\Logs`); niets gaat verloren | 22-11-2026 | `bewijs/2026-11-22_log_security-properties-na.png`, `…_log_winevt-logs-map.png` |
 | DE.AE-03.1 | Routerlog nagekeken (Systeemlogboek): firewall logt sinds 21-11-2026 (DROP van broadcasts op WAN; aanmeldingen op de beheerpagina). Geen externe logserver; log staat in het geheugen van de router en verdwijnt bij herstart. Log opgeslagen als bestand op de kantoor-pc | 22-11-2026 | `bewijs/2026-11-22_log_asus-syslog.png` (logregels afgesneden: bevatten MAC- en IP-adressen) |
+| PR.AA-05.1, 05.2, 05.3 | Toegangsrechten vastgelegd: alle accounts en rechten per systeem, bedrijfskritieke informatie en wie erbij kan, least privilege per account, beheer en halfjaarlijkse herziening | 22-11-2026 | `toegangsrechten.md` |
 
 ## 3. Toets aan het Basic-document (CCB, CyFun 2025, versie 2025-10-01)
 
@@ -52,11 +53,11 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 | Eis | Omschrijving | Stand | Waar / wat ontbreekt |
 |---|---|---|---|
 | ID.AM-08.2 | Patches en beveiligingsupdates geïnstalleerd | Aangetoond | Small: Windows Update, routerfirmware; maandelijkse controle (Small 5d) |
-| PR.AA-01.1 | Identiteiten en wachtwoorden beheerd | Gedeeltelijk | Aparte accounts, routerbeheerder hernoemd (Small). Geen procedure voor aanmaken en intrekken van accounts |
+| PR.AA-01.1 | Identiteiten en wachtwoorden beheerd | Gedeeltelijk | Aparte accounts, routerbeheerder hernoemd (Small); regels voor wijziging en vertrek in `toegangsrechten.md`, deel 4. Geen wachtwoordbeleid op papier |
 | PR.AA-03.2 | MFA bij toegang op afstand | Aangetoond | Geen toegang op afstand in scope; mailbox met MFA (Small punt 1) |
-| PR.AA-05.1 | Toegangsrechten bepaald, beheerd, afgedwongen, herzien | Afwezig | |
-| PR.AA-05.2 | Wie heeft toegang tot bedrijfskritieke informatie, en hoe | Gedeeltelijk | Tabel "Waar ligt wat" in het incidentcontactblad, nog niet ingevuld |
-| PR.AA-05.3 | Least privilege | Afwezig | |
+| PR.AA-05.1 | Toegangsrechten bepaald, beheerd, afgedwongen, herzien | Aangetoond | `toegangsrechten.md`; herziening halfjaarlijks, eerste nog uit te voeren |
+| PR.AA-05.2 | Wie heeft toegang tot bedrijfskritieke informatie, en hoe | Aangetoond | `toegangsrechten.md`, deel 2 |
+| PR.AA-05.3 | Least privilege | Aangetoond | `toegangsrechten.md`, deel 3; Standard user zonder leesrecht op Security-log aangetoond 21-11-2026 |
 | PR.AA-05.4 | Niemand admin voor dagelijks werk | Aangetoond | Small punt 6: `labadmin` / `David` |
 | PR.DS-11.1 | Back-up op een ander systeem | Aangetoond | Small punt 5: File History naar externe schijf, restore getest |
 | PR.PS-04.1 | Logs bijgehouden, gedocumenteerd, gemonitord | Gedeeltelijk | Logs aanwezig en nagekeken (dit dossier); maandelijkse controle vastgelegd (4b). Nog geen eerste uitvoering van die routine |
@@ -95,9 +96,9 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 
 | | Alle 34 | Key measures (13) |
 |---|---|---|
-| Aangetoond | 6 | 5 |
-| Gedeeltelijk | 15 | 6 |
-| Afwezig | 13 | 2 |
+| Aangetoond | 9 | 8 |
+| Gedeeltelijk | 14 | 5 |
+| Afwezig | 11 | 0 |
 
 ## 4. Afspraken en open punten
 
@@ -107,9 +108,11 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 - **4b. Logcontrole, routine:** op de maandelijkse controledag (Small 5d), als beheerder: Event Viewer > Custom Views > Administrative Events, Errors en Criticals sinds de vorige controle duiden; Windows Logs > Security, mislukte aanmeldingen (4625) nakijken. Router: Systeemlogboek nakijken op onbekende aanmeldingen (`HTTPD: [LOGIN]`) en met Opslaan als bestand bewaren in Documenten\Logs (bestandsnaam = datum). Jaarlijks: archieven van het Security-log ouder dan twee jaar verwijderen. Uitgevoerd op 21/22-11-2026 door de dienstverlener.
 - **4c. Back-up van de logs, open:** File History neemt `C:\Windows\System32\winevt\Logs` niet mee. Het opgeslagen routerlog in Documenten wel. Oplossing voor de Windows-logs nog te bepalen.
 - Verschil lab/klant: een echte ping of scan van buiten komt niet in het routerlog, want het publieke adres hoort bij de thuisrouter ervóór. Bij een klant is dat anders.
-- Volgende stap: toegangsrechten (PR.AA-05.1, 05.2, 05.3).
+- Herziening toegangsrechten: halfjaarlijks, op dezelfde dag als het incidentcontactblad en de restore-test (Small 5a, 5b).
+- Volgende stap: inventaris en gegevens (ID.AM-01.1, 02.1, 07.1).
 
 ## 5. Bijlagen
 
 - `bewijs/2026-11-21_*.png`, `bewijs/2026-11-22_*.png`: schermafbeeldingen (bestandsnaam = datum, onderwerp).
+- `toegangsrechten.md`: accounts, rechten, kritieke informatie, herziening.
 - Small-dossier en bijlagen: `elektro-selders-cyfun-small.md`, `incidentcontactblad-sjabloon.md`, `schema-lab.html`.
