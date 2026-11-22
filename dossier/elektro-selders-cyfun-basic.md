@@ -7,8 +7,8 @@
 | Kader | CyFun Basic, Centrum voor Cybersecurity België, CyFun 2025, versie 2025-10-01 |
 | Vorig niveau | CyFun Small, afgerond 11 november 2026 (`elektro-selders-cyfun-small.md`) |
 | Datum opmaak | 21 november 2026 |
-| Laatste bijwerking | 21 november 2026 |
-| Status | In uitvoering. Firewall (PR.IR-01.1, DE.CM-01.1) aangetoond; kantoor-pc achter de router gehangen. |
+| Laatste bijwerking | 22 november 2026 |
+| Status | In uitvoering. Stap 1 firewall aangetoond; stap 2 logs technisch ingericht, controleroutine vastgelegd (4b), back-up van de logs open (4c). |
 
 Bron: `CyFun2025_Booklet-BASIC.pdf` (CCB). Basic telt 34 eisen in 6 functies; 13 daarvan zijn key measures (Annex A). Het CCB schrijft dat de key measures op dit niveau verplicht aangepakt moeten worden.
 
@@ -37,6 +37,11 @@ Schema van de opstelling: `schema-lab.html`.
 | DE.CM-01.1 | Windows Defender Firewall op de kantoor-pc: aan voor de profielen Domein, Privé en Openbaar | 21-11-2026 | `bewijs/2026-11-21_fw_windows-firewall-3-profielen.png` |
 | PR.IR-01.1 | Kantoor-pc achter de router gehangen (lab: VirtualBox bridged op de wifi-kaart, voorheen NAT). Adres 192.168.50.245, gateway 192.168.50.1 (ASUS). Internet getest. | 21-11-2026 | `bewijs/2026-11-21_fw_vm-ipconfig-achter-asus.png` |
 | DE.CM-01.1 | Netwerkprofiel kantoor-pc op Privé gezet (kantoornetwerk); firewallprofiel Privé actief | 21-11-2026 | `bewijs/2026-11-21_fw_windows-netwerkprofiel-prive.png` |
+| PR.PS-04.1 | Nulmeting Windows-logs als Standard user `David`: logs aanwezig, "Overwrite events as needed"; Security-log en een deel van de Administrative Events niet leesbaar ("Access is denied") | 21-11-2026 | `bewijs/2026-11-21_log_eventviewer-overzicht-david.png`, `…_log_eventviewer-access-denied-david.png` |
+| PR.PS-04.1 | Logcontrole als beheerder `labadmin`: Administrative Events nagekeken en geduid (zie 4a) | 21-11-2026 | `bewijs/2026-11-21_log_admin-events-labadmin.png`, `…_log_event-2042.png` |
+| DE.AE-03.1 | Security-log nulmeting: 20 MB, oudste events overschreven, geen bewaartermijn | 22-11-2026 | `bewijs/2026-11-22_log_security-properties-voor.png` |
+| DE.AE-03.1 | Security-log ingesteld: 100 MB, "Archive the log when full, do not overwrite" (archieven in `C:\Windows\System32\winevt\Logs`); niets gaat verloren | 22-11-2026 | `bewijs/2026-11-22_log_security-properties-na.png`, `…_log_winevt-logs-map.png` |
+| DE.AE-03.1 | Routerlog nagekeken (Systeemlogboek): firewall logt sinds 21-11-2026 (DROP van broadcasts op WAN; aanmeldingen op de beheerpagina). Geen externe logserver; log staat in het geheugen van de router en verdwijnt bij herstart. Log opgeslagen als bestand op de kantoor-pc | 22-11-2026 | `bewijs/2026-11-22_log_asus-syslog.png` (logregels afgesneden: bevatten MAC- en IP-adressen) |
 
 ## 3. Toets aan het Basic-document (CCB, CyFun 2025, versie 2025-10-01)
 
@@ -54,11 +59,11 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 | PR.AA-05.3 | Least privilege | Afwezig | |
 | PR.AA-05.4 | Niemand admin voor dagelijks werk | Aangetoond | Small punt 6: `labadmin` / `David` |
 | PR.DS-11.1 | Back-up op een ander systeem | Aangetoond | Small punt 5: File History naar externe schijf, restore getest |
-| PR.PS-04.1 | Logs bijgehouden, gedocumenteerd, gemonitord | Afwezig | |
+| PR.PS-04.1 | Logs bijgehouden, gedocumenteerd, gemonitord | Gedeeltelijk | Logs aanwezig en nagekeken (dit dossier); maandelijkse controle vastgelegd (4b). Nog geen eerste uitvoering van die routine |
 | PR.IR-01.1 | Firewall op alle netwerken, geconfigureerd en onderhouden | Aangetoond | Dit dossier, 21-11-2026 |
 | PR.IR-01.2 | Segmentatie | Gedeeltelijk | Gastnetwerk gescheiden en getest (Small punt 4). Verder niets |
 | DE.CM-01.2 | Antimalware geïnstalleerd en bijgewerkt | Gedeeltelijk | Defender op de pc (Small punt 3). Smartphone niet in scope |
-| DE.AE-03.1 | Logging van beveiligingstools aan, geback-upt, bewaard, nagekeken | Gedeeltelijk | Routerlogging aan sinds 21-11-2026. Geen bewaartermijn, geen back-up van logs, geen controleroutine |
+| DE.AE-03.1 | Logging van beveiligingstools aan, geback-upt, bewaard, nagekeken | Gedeeltelijk | Logging aan (router, Windows); bewaartermijn Security-log vastgelegd (archiveren, 100 MB); controleroutine 4b. Back-up van de Windows-logs nog open (4c) |
 
 ### Overige eisen (21)
 
@@ -91,16 +96,20 @@ Elke eis, met de stand op 21 november 2026. "Aangetoond" = maatregel met datum e
 | | Alle 34 | Key measures (13) |
 |---|---|---|
 | Aangetoond | 6 | 5 |
-| Gedeeltelijk | 14 | 5 |
-| Afwezig | 14 | 3 |
+| Gedeeltelijk | 15 | 6 |
+| Afwezig | 13 | 2 |
 
 ## 4. Afspraken en open punten
 
 - Verschil lab/klant: de ASUS hangt met zijn WAN-poort achter de thuisrouter (WAN IP 192.168.1.5), niet rechtstreeks aan internet. Bewijs: `bewijs/2026-11-21_asus-netwerkkaart-wan.png`. Bij een klant is de router de grens met internet.
 - Het lab-verschil uit het Small-dossier (kantoor-pc via NAT van VirtualBox, niet achter de ASUS) is op 21-11-2026 weggewerkt: de pc hangt nu achter de ASUS, zoals bij een klant.
-- Volgende stap: logs (PR.PS-04.1, DE.AE-03.1) en toegangsrechten (PR.AA-05.1, 05.2, 05.3).
+- **4a. Logcontrole 21-11-2026, bevindingen:** event 2042 "Windows Firewall With Advanced Security, Config Read Failed, Config 18, Access is denied", tweemaal bij elke start. Bekend Microsoft-probleem in Windows 11 24H2 sinds de preview-update van juni 2025; de firewall werkt (drie profielen aan). Genegeerd. Bron: Microsoft Q&A, november 2026. Service Control Manager 7023 "Downloaded Maps Manager": kaartendienst, niet in gebruik, genegeerd. DistributedCOM 10016, DeviceSetupManager 137, TPM-WMI 1040, User Device Registration 360: standaardruis bij opstarten. Geen Critical bij de herstart van 21-11-2026.
+- **4b. Logcontrole, routine:** op de maandelijkse controledag (Small 5d), als beheerder: Event Viewer > Custom Views > Administrative Events, Errors en Criticals sinds de vorige controle duiden; Windows Logs > Security, mislukte aanmeldingen (4625) nakijken. Router: Systeemlogboek nakijken op onbekende aanmeldingen (`HTTPD: [LOGIN]`) en met Opslaan als bestand bewaren in Documenten\Logs (bestandsnaam = datum). Jaarlijks: archieven van het Security-log ouder dan twee jaar verwijderen. Uitgevoerd op 21/22-11-2026 door de dienstverlener.
+- **4c. Back-up van de logs, open:** File History neemt `C:\Windows\System32\winevt\Logs` niet mee. Het opgeslagen routerlog in Documenten wel. Oplossing voor de Windows-logs nog te bepalen.
+- Verschil lab/klant: een echte ping of scan van buiten komt niet in het routerlog, want het publieke adres hoort bij de thuisrouter ervóór. Bij een klant is dat anders.
+- Volgende stap: toegangsrechten (PR.AA-05.1, 05.2, 05.3).
 
 ## 5. Bijlagen
 
-- `bewijs/2026-11-21_*.png`: schermafbeeldingen van 21-11-2026.
+- `bewijs/2026-11-21_*.png`, `bewijs/2026-11-22_*.png`: schermafbeeldingen (bestandsnaam = datum, onderwerp).
 - Small-dossier en bijlagen: `elektro-selders-cyfun-small.md`, `incidentcontactblad-sjabloon.md`, `schema-lab.html`.

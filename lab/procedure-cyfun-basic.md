@@ -1,6 +1,6 @@
 # Procedure CyFun Basic bij een micro-kmo
 
-Stand: 21 november 2026. Gebaseerd op CyFun Basic, CyFun 2025, versie 2025-10-01 (CCB). Basic 2025 telt 34 eisen (6 functies, met de nieuwe functie Govern) en 13 key measures. Versie 2023-03-01 blijft tijdelijk naast 2025 bestaan; daarna aanvaardt het CCB alleen nog 2025. Werk dus op 2025.
+Stand: 22 november 2026. Gebaseerd op CyFun Basic, CyFun 2025, versie 2025-10-01 (CCB). Basic 2025 telt 34 eisen (6 functies, met de nieuwe functie Govern) en 13 key measures. Versie 2023-03-01 blijft tijdelijk naast 2025 bestaan; daarna aanvaardt het CCB alleen nog 2025. Werk dus op 2025.
 
 Dit is de interne werkinstructie van Weblotus. Het klantdossier staat apart in `dossier/`. Vooraf: Small volledig afgerond en gedocumenteerd; Basic bouwt daarop verder.
 
@@ -45,12 +45,37 @@ Met VirtualBox op NAT (standaard) zit de VM op 10.0.2.x met VirtualBox als gatew
 
 Bridged over wifi werkte op deze laptop. Werkt het niet (adres 169.254.x.x of nog 10.0.2.x): kabel van laptop naar ASUS en de Ethernet-kaart kiezen.
 
+## Stap 2 — Logs (PR.PS-04.1, DE.AE-03.1)
+
+Wat het CCB vraagt: logs bijhouden, documenteren en monitoren (PR.PS-04.1); logging van beveiligingstools aan, logs geback-upt, een vooraf bepaalde bewaartermijn, en regelmatig nakijken (DE.AE-03.1). Techniek is het kleine deel; de routine (wie, wanneer, wat) is de eis.
+
+### Kantoor-pc (Windows 11)
+
+1. Nulmeting als Standard user: Event Viewer openen, overzicht. Security-log toont N/A en Administrative Events geeft "Access is denied". Schermafbeelding: dat is bewijs voor least privilege (PR.AA-05.3).
+2. Afmelden, aanmelden als beheerder. Event Viewer > Custom Views > Administrative Events. Elke Error en Critical aanklikken en duiden. Opzoeken wat je niet kent; niet gokken.
+3. Windows Logs > Security > rechtsklik > Properties. Maximum log size op 102400 KB; "Archive the log when full, do not overwrite events". OK. Schermafbeelding vóór en ná.
+4. Noteer in het dossier: wat genegeerd wordt en waarom (met bron), wat de bewaartermijn is, wie wanneer nakijkt.
+
+### Router (ASUS RT-AX55)
+
+Systeemlogboek > Algemeen logboek. Sinds "Logged packets type: Beide" (stap 1) staan er `kernel: DROP`-regels in, plus `HTTPD: [LOGIN]` voor aanmeldingen op de beheerpagina. Knop **Opslaan** downloadt het log als bestand; dat is de enige manier om het te bewaren. "Externe logboekserver" leeg laten bij een micro-kmo.
+
+### Routine voor de klant
+
+Op de maandelijkse controledag: Administrative Events en Security nakijken als beheerder; routerlog nakijken op onbekende aanmeldingen en opslaan in Documenten\Logs. Staat in het dossier als afspraak.
+
 ## Valkuilen
 
+- Als Standard user zie je het Security-log niet en geeft Administrative Events een foutmelding. Niet proberen te omzeilen; aanmelden als beheerder.
+- Regedit en Event Viewer-instellingen: ook als beheerder werkt een wijziging soms pas met "Run as administrator" (UAC).
+- Event 2042 "Config Read Failed, Config 18, Access is denied", tweemaal bij elke start: bekend Microsoft-probleem (Windows 11 24H2, sinds juni 2025), firewall werkt. Niet als defect noteren. Eerst opzoeken, dan duiden: de eerste lezing "komt door de netwerkwissel" was fout.
+- Het routerlog staat in het geheugen van de router en verdwijnt bij herstart. Opslaan als bestand, of het is weg.
+- Het routerlog bevat MAC- en IP-adressen. Schermafbeelding afsnijden boven het logvenster voor het dossier; het opgeslagen logbestand blijft bij de klant.
+- Een aanmelding vanaf een onbekend adres in het routerlog kan een tweede toestel van jezelf zijn (laptop naast VM). Nakijken met `ipconfig`, dan pas concluderen.
 - Zoeken naar "what is my public ip" in Bing toont het adres van Bings eigen bot (Microsoft, msnbot), niet het jouwe. Rechtstreeks een IP-site openen (ifconfig.me). Het publieke adres van een klant is herleidbaar: afdekken in het dossier.
 - Een router die via zijn WAN-poort achter een andere router hangt (lab: thuisrouter) is niet de grens met internet. Het WAN IP op de Netwerkkaart verraadt dit (privé-adres 192.168.x.x). Bij de klant nakijken of de providerrouter nog een eigen firewall heeft; dan zijn er twee.
 - De firewallpagina van ASUS toont geen wachtwoorden of sleutels; schermafbeeldingen kunnen zonder afdekken.
 
 ## Nog niet in deze procedure
 
-Stappen 2 tot 5 volgen.
+Stappen 3 tot 5 volgen.
