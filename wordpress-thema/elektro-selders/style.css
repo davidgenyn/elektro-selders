@@ -1,0 +1,174 @@
+/*
+Theme Name: Elektro Selders
+Description: Huisstijlthema voor Elektro Selders (wit/blauw). Header, menu en footer zitten in het thema; de klant bewerkt alleen pagina's.
+Author: Weblotus
+Version: 2.0
+Requires at least: 6.4
+Requires PHP: 7.4
+Text Domain: elektro-selders
+*/
+
+:root {
+  --es-dark: #0F2F5C;
+  --es-blue: #1E5AA8;
+  --es-light: #E8F0FA;
+  --es-text: #1A1A1A;
+  --es-muted: #5A6B80;
+  --es-max: 1200px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--es-text);
+  background: #fff;
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--es-blue); }
+h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5em; font-weight: 600; }
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.3rem; }
+@media (max-width: 700px) { h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } }
+
+/* ---------- Topbalk ---------- */
+.es-topbar {
+  background: var(--es-dark);
+  color: #fff;
+  font-size: .9rem;
+  text-align: center;
+  padding: .45rem 1rem;
+}
+.es-topbar a { color: #fff; }
+
+/* ---------- Header ---------- */
+.es-header {
+  background: #fff;
+  border-bottom: 1px solid var(--es-light);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.es-header__inner {
+  max-width: var(--es-max);
+  margin: 0 auto;
+  padding: .8rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.es-brand {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  text-decoration: none;
+  color: var(--es-dark);
+  font-weight: 700;
+  font-size: 1.45rem;
+}
+.es-brand img { height: 44px; width: auto; display: block; }
+.es-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.6rem; }
+.es-nav a { text-decoration: none; color: var(--es-text); font-weight: 500; }
+.es-nav a:hover, .es-nav .current-menu-item a, .es-nav .is-current a { color: var(--es-blue); }
+.es-nav .es-nav__cta a {
+  background: var(--es-blue);
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+}
+.es-nav__toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--es-light);
+  border-radius: 6px;
+  padding: .4rem .6rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--es-dark);
+}
+@media (max-width: 760px) {
+  .es-nav__toggle { display: block; }
+  .es-nav { display: none; width: 100%; }
+  .es-nav.is-open { display: block; }
+  .es-nav ul { flex-direction: column; gap: .8rem; padding: .5rem 0 1rem; }
+  .es-header__inner { flex-wrap: wrap; }
+}
+
+/* ---------- Paginatitel (niet op de voorpagina) ---------- */
+.es-page-title {
+  background: var(--es-light);
+  padding: 2.5rem 1.25rem;
+}
+.es-page-title h1 { max-width: var(--es-max); margin: 0 auto; color: var(--es-dark); }
+
+/* ---------- Inhoud ---------- */
+main { min-height: 55vh; }
+.es-content { width: 100%; }
+body:not(.home) .es-content { padding-top: 2rem; }
+.es-content > *:not(.alignfull):not(.alignwide) {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.es-content > .alignwide { max-width: var(--es-max); margin-left: auto; margin-right: auto; }
+.es-content > .alignfull { width: 100%; max-width: none; }
+.es-content .wp-block-group.alignfull > .wp-block-group__inner-container,
+.es-content .wp-block-group.alignfull.is-layout-constrained > * { max-width: var(--es-max); margin-left: auto; margin-right: auto; }
+.es-content .wp-block-group.alignfull.is-layout-constrained > .alignfull { max-width: none; }
+.wp-block-button__link { border-radius: 999px; padding: .75rem 1.5rem; font-weight: 500; }
+.wp-block-columns { gap: 1.5rem; }
+
+/* ---------- Footer ---------- */
+.es-footer { background: var(--es-dark); color: #C9D6E8; margin-top: 3rem; }
+.es-footer__inner {
+  max-width: var(--es-max);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  font-size: .95rem;
+}
+.es-footer h4 { color: #fff; font-size: 1rem; margin-bottom: .6rem; }
+.es-footer a { color: #fff; text-decoration: none; }
+.es-footer a:hover { text-decoration: underline; }
+.es-footer ul { list-style: none; margin: 0; padding: 0; }
+.es-footer li { margin: .25rem 0; }
+.es-footer__bottom {
+  border-top: 1px solid rgba(255,255,255,.15);
+  text-align: center;
+  padding: 1rem;
+  font-size: .85rem;
+}
+
+/* ---------- Dienstkaarten: gelijke foto's en gelijke hoogte ---------- */
+.es-content .wp-block-columns .wp-block-column { display: flex; flex-direction: column; }
+.es-content .wp-block-columns .wp-block-column > .wp-block-image { margin: 0; }
+.es-content .wp-block-columns .wp-block-column > .wp-block-image img {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  display: block;
+}
+.es-content .wp-block-columns .wp-block-column > .wp-block-image + .wp-block-group {
+  flex: 1;
+  border-radius: 0 0 8px 8px !important;
+  margin-top: 0;
+}
+
+/* ---------- v2: hero als blokgroep en contactgegevens ---------- */
+.es-content > .es-hero { padding: 4rem 1.25rem; }
+.es-content > .es-hero h1 { font-size: 2.6rem; }
+.es-content > .es-hero p { font-size: 1.15rem; max-width: 60ch; }
+.es-content .wp-block-button.is-style-outline .wp-block-button__link { color: #fff; border-color: #fff; }
+.es-contactinfo p { margin: .3rem 0; }
+.es-content > .alignfull.has-es-light-background-color { padding: 2.5rem 1.25rem; }
