@@ -30,7 +30,7 @@ Knop **Mijn Elektro** in het menu, naast "Gratis offerte".
 |---|---|---|
 | Registratie, login, rol "Klant-portaal", pagina-sjabloon "Mijn pagina", profielvelden (adres, installatie, documenten, berichten), menupunt "Klanten" voor de beheerder | eigen code in het thema (`functions.php` + sjabloon) | €0 |
 | Afspraken: afspraaktypes, beschikbaarheid, Google Agenda-koppeling, mails/sms, boekingspagina | Cal.com, gratis plan "Individuals": 1 gebruiker, onbeperkt afspraaktypes en agenda's, e-mail- en sms-meldingen, 100+ koppelingen; Cal.com-logo op de boekingspagina (cal.com/pricing, 25 nov 2026). Account op het e-mailadres van de klant. | €0 |
-| Optioneel: afspraak terugschrijven op Mijn pagina | n8n: webhook van Cal.com → profielveld "volgende afspraak" + logboek | €0 (eigen n8n) |
+| Optie (apart te betalen, niet in het basisaanbod): afspraak automatisch op Mijn pagina | n8n: webhook van Cal.com → profielveld "volgende afspraak" + logboek | automatiseringsdienst Weblotus |
 
 Ingebed op "Mijn pagina" of als aparte boekingspagina (zoals motioncenter.be doet met Crossuite): nog te kiezen.
 
@@ -98,7 +98,9 @@ een echt adres (bv. `lotusflow.contact+test@gmail.com`).
 ## Bekende beperkingen / nog te doen
 
 1. De geboekte afspraak komt **niet automatisch** op de klantpagina; de elektricien vult "Volgende afspraak" in via
-   dashboard → Klanten. Automatisch kan via n8n (Cal.com-webhook → WordPress REST). Nog niet gebouwd.
+   dashboard → Klanten. Dat is zo bedoeld (beslissing 25 nov 2026): automatisering via n8n hoort niet bij het
+   basisaanbod, want niet elke klant wil daarvoor betalen. Het kan als aparte, betaalde optie (Cal.com-webhook →
+   WordPress REST).
 2. `/afspraak/` gebruikt nu een eenvoudig `<iframe>`; in de browserpane van Claude reageerde dat niet op klikken
    (in een gewone browser wel). Vervangen door Cal.com's officiële embed-script staat op de lijst (thema v2.5).
 3. Het adresveld van Cal.com wordt niet vooraf ingevuld (alleen naam, e-mail en de notitie met adres/telefoon).
