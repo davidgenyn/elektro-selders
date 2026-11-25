@@ -1,7 +1,8 @@
 # Plan "Mijn Elektro" — klantenzone met afspraken (fase 3)
 
-Beslist op 25 november 2026: voorstel A (klantenzone in het thema + Cal.com voor afspraken). Nog niet gebouwd;
-bouwen gebeurt na de domeinkoppeling en na een aparte wijzigingenlijst met akkoord.
+Beslist op 25 november 2026: voorstel A (klantenzone in het thema + Cal.com voor afspraken).
+**Gebouwd op 25 november 2026 (thema v2.4)** en getest op de WordPress.com-site met testklant "Jan Peeters".
+Nog open: het Cal.com-account van de klant (zie onderaan).
 
 ![Stroomschema Mijn Elektro](mijn-elektro/schema.png)
 
@@ -42,3 +43,39 @@ Gratis versies beperkt tot 1 medewerker. Alleen zinvol bij betalingen of meerder
 motioncenter.be (Tienen, gemaakt door Webhero): geen login of klantportaal; knop "Maak een afspraak" linkt
 naar een externe boekingspagina van Crossuite (praktijksoftware); psychologen via intern aanmeldformulier.
 Zelfde principe als voorstel A (site + aparte boekingstool), zonder de klantpagina.
+
+## Gebouwd (thema v2.4) — hoe het werkt
+
+![Inloggen / registreren](mijn-elektro/01_inloggen_registreren.jpg)
+![Mijn pagina, ingelogd als Jan Peeters](mijn-elektro/02_mijn_pagina.jpg)
+![Klanten beheren in het dashboard](mijn-elektro/03_klanten_beheer.png)
+
+- **Pagina's**: `/mijn-elektro/` met shortcode `[es_mijn_pagina]`, `/afspraak/` met `[es_afspraak]`. Beide staan in het
+  menu (kop en voet) via het thema.
+- **Rol `es_portaal` (Klant-portaal)**: wordt automatisch toegekend bij registratie. Geen dashboard: elke poging naar
+  `/wp-admin/` stuurt door naar Mijn Elektro; geen admin-balk; na inloggen altijd naar Mijn Elektro.
+- **Registreren**: eigen formulier op de pagina (naam, e-mail, telefoon, adres, wachtwoord ≥ 8 tekens), verborgen
+  honingpotveld tegen bots, gebruikersnaam = deel vóór de @ van het e-mailadres. Welkomstmail naar de klant, melding
+  naar het e-mailadres uit Bedrijfsgegevens. De klant is meteen ingelogd. (Geen activatielink; wie een fout adres
+  opgeeft, krijgt gewoon geen mail.)
+- **Inloggen**: standaard WordPress-formulier op de pagina, met "Wachtwoord vergeten?".
+- **Mijn pagina**: welkom + adres/telefoon, Volgende afspraak (+ knop Afspraak maken), Mijn installatie, Documenten
+  (PDF's), Berichten, Mijn gegevens wijzigen (telefoon en adres; naam/e-mail via de elektricien).
+- **Beheer**: dashboard → **Klanten** (zichtbaar voor beheerders én de rol Klant/Bea): lijst van portaalklanten; per
+  klant telefoon, adres, installatie (één punt per regel), volgende afspraak, berichten (één per regel), documenten
+  (meerkeuzelijst van PDF's uit de mediabibliotheek — eerst uploaden via Media). Dezelfde velden staan ook op het
+  gebruikersprofiel (Gebruikers) voor beheerders.
+- **Afspraak maken**: pagina `/afspraak/` toont Cal.com in een kader zodra in **Bedrijfsgegevens** het nieuwe veld
+  "Cal.com-link voor afspraken" ingevuld is (bv. `https://cal.com/<naam>/afspraak`). Naam, e-mail en adres/telefoon van
+  de ingelogde klant worden meegegeven (`?name=…&email=…&notes=…`). Zonder link: tekst "Bel … of mail …".
+- Gegevens zitten als gebruikersmeta (`es_tel`, `es_adres`, `es_installatie`, `es_afspraak`, `es_berichten`, `es_docs`).
+
+## Nog te doen
+
+1. **Cal.com-account aanmaken** op het e-mailadres van de klant (cal.com → Sign up, gratis plan "Individuals"):
+   afspraaktypes "Offertebezoek" (60 min), "Herstelling" (60 min), "Keuring" (120 min); beschikbaarheid ma–vr 8–18;
+   Google Agenda koppelen (Settings → Calendars). Daarna de link van één afspraaktype (of de profielpagina
+   `https://cal.com/<naam>`) in Bedrijfsgegevens plakken. Dit doet de klant zelf of David met de login van de klant.
+2. Optioneel: n8n-webhook vanuit Cal.com om "Volgende afspraak" automatisch in te vullen (nu vult de elektricien dat
+   in via Klanten).
+3. Testklant "Jan Peeters" (jan.peeters@example.com) en de demo-gegevens verwijderen vóór oplevering aan een echte klant.

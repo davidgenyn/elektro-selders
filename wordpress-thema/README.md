@@ -1,4 +1,4 @@
-# WordPress-thema "Elektro Selders" v2.3 (Weblotus)
+# WordPress-thema "Elektro Selders" v2.4 (Weblotus)
 
 Klassiek WordPress-thema voor klantsites die de klant zelf bewerkt. Staat sinds 25 nov 2026 op de
 WordPress.com-site van Elektro Selders (`famous-pirate-blizzard.wpcomstaging.com`, plan Premium), waaraan
@@ -17,18 +17,20 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
   kan maken zonder het te wissen.)
 - **FAQ**: op Diensten en de dienstpagina's als uitklapblokken (Details-blok: vraag = titel, antwoord = tekst).
   Het thema maakt daaruit automatisch `FAQPage`-structured data; de klant hoeft niets te doen.
+- **Mijn Elektro** (v2.4): klantenzone — registreren/inloggen, eigen pagina met afspraak, installatie, documenten,
+  berichten; beheer via dashboard → Klanten; afspraken via Cal.com op `/afspraak/`. Zie `docs/mijn-elektro-plan.md`.
 - **SEO**: paginatitel, meta description (uit de samenvatting, anders de eerste 28 woorden), canonical,
   Open Graph (als Yoast niet actief is) en schema.org `Electrician` uit de Bedrijfsgegevens (altijd).
   Sitemap maakt WordPress zelf (`/wp-sitemap.xml`). Yoast SEO is voor deze site niet nodig.
 
 ## Bestanden
 ```
-style.css       huisstijl (v2.3)
+style.css       huisstijl (v2.4)
 functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjablonen + FAQ, SEO + FAQPage
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)
 docs/klant-handleiding.md     voor de klant: inloggen, tekst/foto/FAQ aanpassen, Bedrijfsgegevens (met screenshots)
-docs/mijn-elektro-plan.md     fase 3: klantenzone "Mijn Elektro" + afspraken via Cal.com (plan, nog niet gebouwd)
+docs/mijn-elektro-plan.md     fase 3: klantenzone "Mijn Elektro" + afspraken via Cal.com (gebouwd 25 nov; Cal.com-account nog te maken)
 ```
 Alles in één `functions.php` zodat het via Weergave → Thema bestand editor in het dashboard geplaatst kan worden
 (die editor kan geen nieuwe bestanden maken).
