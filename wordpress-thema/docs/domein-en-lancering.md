@@ -90,6 +90,8 @@ Beslissing 25 nov 2026: Netlify naar het **Free**-plan; de site mag blijven staa
 
 app.netlify.com → team linksboven → **Usage & billing** → tab **Billing details** → bij plan Personal de
 link **Free Plan →** → bevestigen. Op Free: 0 credits, de site gaat offline, geen kosten.
+Let op: op het tabblad General staat alleen "Upgrade"; de downgrade-link staat op Billing details, in het vak
+"Delete payment method". Gedaan op 25 nov 2026 (door David, in het david.genyn-profiel).
 (Een site verwijderen: Site configuration → General → Danger zone → Delete site. Niet gedaan.)
 
 ## Wat nog volgt na de domeinkoppeling

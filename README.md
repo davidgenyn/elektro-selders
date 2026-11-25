@@ -33,7 +33,7 @@ wijziging met naam en tijdstip in de GitHub-geschiedenis en kan ze teruggedraaid
 | Dienst | Account | Rol |
 |---|---|---|
 | GitHub | davidgenyn | eigenaar repository |
-| Netlify | david.genyn@gmail.com, team Weblotus | eigenaar; **Personal-plan $9/mnd** sinds 10 nov 2026 |
+| Netlify | david.genyn@gmail.com, team Weblotus | eigenaar; Personal-plan 10–25 nov 2026, **sinds 25 nov terug Free** (geen kosten; site gaat offline bij 0 credits) |
 | DecapBridge | david.genyn@gmail.com (Google-login) | **Owner**: enige die site-instellingen (login-URL, GitHub-sleutel) kan wijzigen |
 | DecapBridge | lotusflow.contact@gmail.com (wachtwoord) | **Collaborator** = de "klant": kan inhoud bewerken, geen instellingen |
 | Umami Cloud | lotusflow.contact@gmail.com (Google-login), regio EU, Hobby-plan | website "Elektro Selders", ID `3128268b-5f0e-4544-890c-76da63d4afc7` |
@@ -41,7 +41,7 @@ wijziging met naam en tijdstip in de GitHub-geschiedenis en kan ze teruggedraaid
 | Google Search Console | lotusflow.contact@gmail.com | domein-property `lotusflow.net`, geverifieerd via TXT bij Vimexx |
 | Bing Webmaster Tools | lotusflow.contact@gmail.com (Google-login) | `https://lotusflow.net/`, geverifieerd via CNAME `84604c254ce6a627420a99c3b2a7f780 → verify.bing.com` |
 | Vimexx | bestaand account | DNS lotusflow.net |
-| WordPress.com | lotusflow.contact@gmail.com | **oude route, niet meer gebruikt; opzeggen vóór 26 nov 2026** |
+| WordPress.com | lotusflow.contact@gmail.com | **de gekozen route sinds 23 nov 2026** (plan Premium, blijft lopen); thema en docs in `wordpress-thema/` |
 
 Let op bij DecapBridge: ingelogd als collaborator zie je enkel "Go to CMS" en geen instellingen. Voor instellingen: uitloggen, inloggen met het owner-account (Google) → **Manage site** → tab **Settings**.
 
