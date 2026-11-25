@@ -94,6 +94,17 @@ Let op: op het tabblad General staat alleen "Upgrade"; de downgrade-link staat o
 "Delete payment method". Gedaan op 25 nov 2026 (door David, in het david.genyn-profiel).
 (Een site verwijderen: Site configuration → General → Danger zone → Delete site. Niet gedaan.)
 
+## Na de verificatie: primair domein en vindbaarheid
+
+Zolang het primaire domein het wpcomstaging-adres is, staan in WordPress.com → Instellingen →
+Zichtbaarheid site de vinkjes **"Zoekmachines ontmoedigen"** en **"Voorkom delen door derden"** vast aan
+(grijs, niet te wijzigen) en is `robots.txt` `Disallow: /`. Daarom, zodra alle records "Geverifieerd" zijn:
+
+1. WordPress.com → Domeinen → lotusflow.net → **Als primair domein instellen**.
+2. Instellingen → Zichtbaarheid site → beide vinkjes **uit** → Opslaan. (Beslissing 25 nov 2026: de site
+   eerst een week vindbaar laten zijn, daarna de vinkjes terug aan.)
+3. Controleer `https://lotusflow.net/robots.txt`.
+
 ## Wat nog volgt na de domeinkoppeling
 
 - Search Console: de bestaande domein-property `lotusflow.net` blijft geldig (TXT-record staat nog);
