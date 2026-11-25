@@ -1,4 +1,4 @@
-# WordPress-thema "Elektro Selders" v2.1 (Weblotus)
+# WordPress-thema "Elektro Selders" v2.2 (Weblotus)
 
 Klassiek WordPress-thema voor klantsites die de klant zelf bewerkt. Staat sinds 25 nov 2026 op de
 WordPress.com-site van Elektro Selders (`famous-pirate-blizzard.wpcomstaging.com`, plan Premium), waaraan
@@ -23,10 +23,11 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
 
 ## Bestanden
 ```
-style.css       huisstijl (v2.1)
+style.css       huisstijl (v2.2)
 functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjablonen + FAQ, SEO + FAQPage
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)
+docs/klant-handleiding.md     voor de klant: inloggen, tekst/foto/FAQ aanpassen, Bedrijfsgegevens (met screenshots)
 ```
 Alles in één `functions.php` zodat het via Weergave → Thema bestand editor in het dashboard geplaatst kan worden
 (die editor kan geen nieuwe bestanden maken).
@@ -51,8 +52,9 @@ Eigendom: het WordPress.com-account, de site en het domein staan op naam van de 
 van de klant met de login die de klant geeft. Geen apart Weblotus-beheerdersaccount.
 
 ## Open punten (25 nov 2026)
-- Jetpack AI ("Verbeter met AI", AI-knop in de bloktoolbar) nog zichtbaar voor de rol Klant; Yoast-paneel
-  verdwijnt zodra Yoast gedeactiveerd wordt.
+- Yoast SEO is gedeactiveerd (niet verwijderd) en Jetpack AI staat uit voor de rol Klant (v2.2). Het
+  Jetpack-paneel "Optimaliseer SEO" blijft zichtbaar; uit te zetten via Jetpack → Instellingen → Verkeer →
+  SEO-tools als dat gewenst is.
 - Analytics (GA4 ingebouwd op Premium; cookiebanner en Umami nog uit te zoeken), PageSpeed-meting en
   robots.txt/AI-crawlers: pas na domeinkoppeling op `https://lotusflow.net`.
 
