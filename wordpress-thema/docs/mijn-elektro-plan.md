@@ -65,9 +65,10 @@ Zelfde principe als voorstel A (site + aparte boekingstool), zonder de klantpagi
   klant telefoon, adres, installatie (één punt per regel), volgende afspraak, berichten (één per regel), documenten
   (meerkeuzelijst van PDF's uit de mediabibliotheek — eerst uploaden via Media). Dezelfde velden staan ook op het
   gebruikersprofiel (Gebruikers) voor beheerders.
-- **Afspraak maken**: pagina `/afspraak/` toont Cal.com in een kader zodra in **Bedrijfsgegevens** het nieuwe veld
-  "Cal.com-link voor afspraken" ingevuld is (bv. `https://cal.com/<naam>/afspraak`). Naam, e-mail en adres/telefoon van
-  de ingelogde klant worden meegegeven (`?name=…&email=…&notes=…`). Zonder link: tekst "Bel … of mail …".
+- **Afspraak maken**: pagina `/afspraak/` toont Cal.com (embed-script) zodra in **Bedrijfsgegevens** het veld
+  "Cal.com-link voor afspraken" ingevuld is (`https://cal.com/lotusflow` → alle afspraaktypes, of
+  `https://cal.com/lotusflow/offertebezoek` → één type). Naam, e-mail, adres en telefoon van de ingelogde klant
+  worden vooraf ingevuld. Zonder link: tekst "Bel … of mail …".
 - Gegevens zitten als gebruikersmeta (`es_tel`, `es_adres`, `es_installatie`, `es_afspraak`, `es_berichten`, `es_docs`).
 
 ## Cal.com opzetten (gedaan 25 nov 2026, account lotusflow.contact@gmail.com, link cal.com/lotusflow)
@@ -101,8 +102,11 @@ een echt adres (bv. `lotusflow.contact+test@gmail.com`).
    dashboard → Klanten. Dat is zo bedoeld (beslissing 25 nov 2026): automatisering via n8n hoort niet bij het
    basisaanbod, want niet elke klant wil daarvoor betalen. Het kan als aparte, betaalde optie (Cal.com-webhook →
    WordPress REST).
-2. `/afspraak/` gebruikt nu een eenvoudig `<iframe>`; in de browserpane van Claude reageerde dat niet op klikken
-   (in een gewone browser wel). Vervangen door Cal.com's officiële embed-script staat op de lijst (thema v2.5).
-3. Het adresveld van Cal.com wordt niet vooraf ingevuld (alleen naam, e-mail en de notitie met adres/telefoon).
+2. `/afspraak/` gebruikt sinds v2.5 het officiële Cal.com-embed-script (inline embed, `app.cal.com/embed/embed.js`)
+   met voorinvulling via de embed-config: `name`, `email`, `notes` (telefoon) en `location`
+   = `{"value":"attendeeInPerson","optionValue":"<adres van de woning>"}` (Cal.com-documentatie "Prefill booking
+   form in Embed"). De link "Opent de agenda niet? Klik hier." opent Cal.com rechtstreeks als het script geblokkeerd is.
+   In de browserpane van Claude reageert het kader niet op klikken; in een gewone browser wel — te controleren door
+   David: adres moet vooraf ingevuld staan.
 4. De taal van de Cal.com-boekingspagina (knoppen "Confirm", "Back"): nog na te gaan of die per pagina vast te zetten is.
 5. Testklanten (Jan Peeters, Jolien) en de demo-gegevens verwijderen vóór oplevering aan een echte klant.

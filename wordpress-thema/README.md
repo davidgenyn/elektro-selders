@@ -1,4 +1,4 @@
-# WordPress-thema "Elektro Selders" v2.4 (Weblotus)
+# WordPress-thema "Elektro Selders" v2.5 (Weblotus)
 
 Klassiek WordPress-thema voor klantsites die de klant zelf bewerkt. Staat sinds 25 nov 2026 op de
 WordPress.com-site van Elektro Selders (`famous-pirate-blizzard.wpcomstaging.com`, plan Premium), waaraan
@@ -17,7 +17,7 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
   kan maken zonder het te wissen.)
 - **FAQ**: op Diensten en de dienstpagina's als uitklapblokken (Details-blok: vraag = titel, antwoord = tekst).
   Het thema maakt daaruit automatisch `FAQPage`-structured data; de klant hoeft niets te doen.
-- **Mijn Elektro** (v2.4): klantenzone — registreren/inloggen, eigen pagina met afspraak, installatie, documenten,
+- **Mijn Elektro** (v2.4–2.5): klantenzone — registreren/inloggen, eigen pagina met afspraak, installatie, documenten,
   berichten; beheer via dashboard → Klanten; afspraken via Cal.com op `/afspraak/`. Zie `docs/mijn-elektro-plan.md`.
 - **SEO**: paginatitel, meta description (uit de samenvatting, anders de eerste 28 woorden), canonical,
   Open Graph (als Yoast niet actief is) en schema.org `Electrician` uit de Bedrijfsgegevens (altijd).
@@ -25,7 +25,7 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
 
 ## Bestanden
 ```
-style.css       huisstijl (v2.4)
+style.css       huisstijl (v2.5)
 functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjablonen + FAQ, SEO + FAQPage
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)
