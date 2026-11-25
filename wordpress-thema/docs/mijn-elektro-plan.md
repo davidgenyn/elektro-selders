@@ -70,12 +70,37 @@ Zelfde principe als voorstel A (site + aparte boekingstool), zonder de klantpagi
   de ingelogde klant worden meegegeven (`?name=…&email=…&notes=…`). Zonder link: tekst "Bel … of mail …".
 - Gegevens zitten als gebruikersmeta (`es_tel`, `es_adres`, `es_installatie`, `es_afspraak`, `es_berichten`, `es_docs`).
 
-## Nog te doen
+## Cal.com opzetten (gedaan 25 nov 2026, account lotusflow.contact@gmail.com, link cal.com/lotusflow)
 
-1. **Cal.com-account aanmaken** op het e-mailadres van de klant (cal.com → Sign up, gratis plan "Individuals"):
-   afspraaktypes "Offertebezoek" (60 min), "Herstelling" (60 min), "Keuring" (120 min); beschikbaarheid ma–vr 8–18;
-   Google Agenda koppelen (Settings → Calendars). Daarna de link van één afspraaktype (of de profielpagina
-   `https://cal.com/<naam>`) in Bedrijfsgegevens plakken. Dit doet de klant zelf of David met de login van de klant.
-2. Optioneel: n8n-webhook vanuit Cal.com om "Volgende afspraak" automatisch in te vullen (nu vult de elektricien dat
-   in via Klanten).
-3. Testklant "Jan Peeters" (jan.peeters@example.com) en de demo-gegevens verwijderen vóór oplevering aan een echte klant.
+1. **Account**: cal.com → Sign up met het e-mailadres van de klant → gratis plan. Wizard: naam `Elektro Selders`,
+   booking link (hier `lotusflow`), Google Calendar koppelen (stap 2, "Connected"), stap 3 "How you'll meet" →
+   niets koppelen, **Finish** (een elektricien komt ter plaatse).
+2. **Links** (= afspraaktypes): de drie voorbeelden (30 min, Secret, 15 min) verwijderen via ⋯ → Delete.
+   **+ New** → Title / Description / Duration:
+   - Offertebezoek — 60 — "Gratis en vrijblijvend bezoek bij u thuis om de werken te bekijken"
+   - Herstelling — 60 — "Herstelling van een storing of defect bij u thuis"
+   - Keuring — 120 — "Elektrische keuring of herstel van opmerkingen op het keuringsverslag"
+   Per afspraaktype onder **Basics** → Location: "Cal Video" vervangen door **In Person (Attendee Address)**
+   (adres van de klant; Google-adressuggesties, vrije tekst mag ook) → Save.
+3. **Booking form** (per afspraaktype, menu links): labels in het Nederlands — "In Person (Attendee Address)" →
+   `Adres van de woning` met placeholder `Straat en nummer, postcode gemeente`; "Your name" → `Naam`;
+   "Email address" → `E-mailadres`; "Additional notes" → `Opmerking (optioneel)`.
+4. **Availability** → Working Hours: ma–vr 8:00–18:00, weekend uit, Europe/Brussels (standaard stond 9–17).
+5. **WordPress → Bedrijfsgegevens** → veld "Cal.com-link voor afspraken": `https://cal.com/lotusflow` → opslaan.
+   Vanaf dan toont `/afspraak/` de drie afspraaktypes.
+
+**Test 25 nov 2026**: registratie als nieuwe klant via Mijn Elektro (incognito), Afspraak maken → Offertebezoek →
+dag en uur → naam/e-mail stonden vooraf ingevuld → adres ingevuld → Confirm. Boeking gelukt; bevestigingsmail bij de
+klant, afspraak in de Google Agenda van lotusflow.contact en onder Cal.com → Bookings.
+Let op: Cal.com weigert een e-mailadres dat niet bestaat ("This email address cannot receive mail"), dus testen met
+een echt adres (bv. `lotusflow.contact+test@gmail.com`).
+
+## Bekende beperkingen / nog te doen
+
+1. De geboekte afspraak komt **niet automatisch** op de klantpagina; de elektricien vult "Volgende afspraak" in via
+   dashboard → Klanten. Automatisch kan via n8n (Cal.com-webhook → WordPress REST). Nog niet gebouwd.
+2. `/afspraak/` gebruikt nu een eenvoudig `<iframe>`; in de browserpane van Claude reageerde dat niet op klikken
+   (in een gewone browser wel). Vervangen door Cal.com's officiële embed-script staat op de lijst (thema v2.5).
+3. Het adresveld van Cal.com wordt niet vooraf ingevuld (alleen naam, e-mail en de notitie met adres/telefoon).
+4. De taal van de Cal.com-boekingspagina (knoppen "Confirm", "Back"): nog na te gaan of die per pagina vast te zetten is.
+5. Testklanten (Jan Peeters, Jolien) en de demo-gegevens verwijderen vóór oplevering aan een echte klant.
