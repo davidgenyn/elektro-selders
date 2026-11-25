@@ -52,7 +52,10 @@ van de tekst.
    Dat helpt Google en mensen met een schermlezer.
 5. Klik rechtsboven op **Opslaan**.
 
-Foto's mogen groot zijn; WordPress verkleint ze zelf. Liefst liggende foto's voor de dienstenkaarten.
+**Foto's eerst verkleinen.** WordPress.com maakt grote foto's niet automatisch licht. Een foto van 1 MB
+maakt de pagina traag op gsm. Maak de foto vóór het uploaden ongeveer **900 pixels breed** en bewaar als
+**JPG** (of WebP), dan weegt hij 50–150 KB. Op Windows: foto openen in Foto's → "Formaat wijzigen" →
+breedte 900. Liefst liggende foto's voor de dienstenkaarten.
 
 ## 4. Een vraag en antwoord (FAQ) aanpassen
 

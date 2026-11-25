@@ -1,4 +1,4 @@
-# WordPress-thema "Elektro Selders" v2.2 (Weblotus)
+# WordPress-thema "Elektro Selders" v2.3 (Weblotus)
 
 Klassiek WordPress-thema voor klantsites die de klant zelf bewerkt. Staat sinds 25 nov 2026 op de
 WordPress.com-site van Elektro Selders (`famous-pirate-blizzard.wpcomstaging.com`, plan Premium), waaraan
@@ -23,7 +23,7 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
 
 ## Bestanden
 ```
-style.css       huisstijl (v2.2)
+style.css       huisstijl (v2.3)
 functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjablonen + FAQ, SEO + FAQPage
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)
@@ -50,6 +50,14 @@ Alles in één `functions.php` zodat het via Weergave → Thema bestand editor i
 
 Eigendom: het WordPress.com-account, de site en het domein staan op naam van de klant. Weblotus werkt op vraag
 van de klant met de login die de klant geeft. Geen apart Weblotus-beheerdersaccount.
+
+## Snelheid (PageSpeed, 25 nov 2026, wpcomstaging-adres)
+Mobiel 97 / 96 / 100 / 69, desktop 100 / 93 / 100 / 69 (prestaties / toegankelijkheid / best practices / SEO).
+SEO 69 = "blocked from indexing" zolang het wpcomstaging-adres primair is; verdwijnt na de domeinkoppeling.
+Les: foto's **vóór upload** verkleinen (≤ 900 px breed, JPG/WebP). De drie dienstenfoto's waren PNG's van ~1 MB
+(score 78); als WebP van 36–83 KB (in de browser omgezet met canvas → toBlob('image/webp') en geüpload via
+de REST-API) gaf dat 97. Thema v2.3 verhelpt de toegankelijkheidsmeldingen (footer-`h4`, onderstreepte
+tekstlinks, logo met width/height). Resterende meldingen komen van WordPress.com/Jetpack-scripts.
 
 ## Open punten (25 nov 2026)
 - Yoast SEO is gedeactiveerd (niet verwijderd) en Jetpack AI staat uit voor de rol Klant (v2.2). Het
