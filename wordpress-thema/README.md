@@ -28,6 +28,7 @@ functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjab
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)
 docs/klant-handleiding.md     voor de klant: inloggen, tekst/foto/FAQ aanpassen, Bedrijfsgegevens (met screenshots)
+docs/mijn-elektro-plan.md     fase 3: klantenzone "Mijn Elektro" + afspraken via Cal.com (plan, nog niet gebouwd)
 ```
 Alles in één `functions.php` zodat het via Weergave → Thema bestand editor in het dashboard geplaatst kan worden
 (die editor kan geen nieuwe bestanden maken).
