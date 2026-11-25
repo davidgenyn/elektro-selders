@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.1' );
+define( 'ES_THEME_VERSION', '2.2' );
 
 
 function es_setup() {
@@ -231,6 +231,11 @@ add_action( 'admin_head', function () {
 add_action( 'enqueue_block_editor_assets', function () {
 	if ( ! es_is_klant() ) { return; }
 	wp_add_inline_script( 'wp-edit-post', "wp.domReady(function(){ try { wp.data.dispatch('core/preferences').set('core/edit-post','welcomeGuide',false); } catch(e){} });" );
+} );
+
+/** Jetpack AI (knop in de bloktoolbar, paneel "Verbeter met AI") uit voor de rol Klant. */
+add_filter( 'jetpack_ai_enabled', function ( $enabled ) {
+	return es_is_klant() ? false : $enabled;
 } );
 
 /** Klant altijd naar het dashboard na inloggen. */
