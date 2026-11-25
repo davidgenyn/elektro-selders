@@ -2,7 +2,7 @@
 Theme Name: Elektro Selders
 Description: Huisstijlthema voor Elektro Selders (wit/blauw). Header, menu en footer zitten in het thema; de klant bewerkt alleen pagina's.
 Author: Weblotus
-Version: 2.3
+Version: 2.4
 Requires at least: 6.4
 Requires PHP: 7.4
 Text Domain: elektro-selders
@@ -184,3 +184,21 @@ body:not(.home) .es-content { padding-top: 2rem; }
 /* ---------- v2.3: links in de tekst onderstreept (toegankelijkheid), footer-titels zonder h4 ---------- */
 .es-content p a, .es-content li a, .es-contactinfo a { text-decoration: underline; }
 .es-content .wp-block-button__link, .es-content h2 a, .es-content h3 a { text-decoration: none; }
+
+/* ---------- v2.4: Mijn Elektro (klantenzone) ---------- */
+.es-portaal { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+.es-portaal__kolommen { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+@media (max-width: 700px) { .es-portaal__kolommen { grid-template-columns: 1fr; } }
+.es-portaal__kaart { background: var(--es-light); border-radius: 10px; padding: 1.25rem 1.4rem; margin: 0 0 1.25rem; }
+.es-portaal__kaart h2, .es-portaal__kaart h3 { margin-top: 0; font-size: 1.2rem; color: var(--es-dark); }
+.es-portaal__kop h2 { margin-bottom: .2rem; }
+.es-portaal__afspraak { background: var(--es-dark); color: #fff; }
+.es-portaal__afspraak h3, .es-portaal__afspraak a:not(.wp-element-button) { color: #fff; }
+.es-portaal__groot { font-size: 1.25rem; font-weight: 600; }
+.es-portaal input[type=text], .es-portaal input[type=email], .es-portaal input[type=tel], .es-portaal input[type=password] { width: 100%; padding: .55rem .7rem; border: 1px solid #C9D6E8; border-radius: 6px; font: inherit; }
+.es-portaal label { font-weight: 500; font-size: .95rem; }
+.es-portaal p { margin: .5rem 0; }
+.es-portaal .wp-element-button, .es-portaal #wp-submit { background: var(--es-blue); color: #fff; border: 0; border-radius: 999px; padding: .65rem 1.4rem; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
+.es-portaal__fout { background: #FDECEC; border: 1px solid #B23B3B; color: #8a1f1f; padding: .7rem 1rem; border-radius: 8px; }
+.es-portaal__ok { background: #E8F5E9; border: 1px solid #2E7D32; color: #1b5e20; padding: .7rem 1rem; border-radius: 8px; }
+.es-calcom { width: 100%; height: 760px; border: 0; border-radius: 10px; }

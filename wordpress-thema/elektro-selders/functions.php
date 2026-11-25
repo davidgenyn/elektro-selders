@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.3' );
+define( 'ES_THEME_VERSION', '2.4' );
 
 
 function es_setup() {
@@ -52,6 +52,7 @@ function es_fallback_menu() {
 		$cls = ( $current === $path ) ? ' class="is-current"' : '';
 		echo '<li' . $cls . '><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
+	echo '<li><a href="' . esc_url( home_url( '/mijn-elektro/' ) ) . '">Mijn Elektro</a></li>';
 	echo '<li class="es-nav__cta"><a href="' . esc_url( home_url( '/contact/' ) ) . '">Gratis offerte</a></li>';
 	echo '</ul>';
 }
@@ -64,7 +65,7 @@ function es_fallback_menu() {
  */
 
 function es_bedrijf_velden() {
-	return array(
+	$velden = array(
 		'naam'       => array( 'Bedrijfsnaam',            'text',     'Elektro Selders' ),
 		'slogan'     => array( 'Slogan (onder de naam)',  'text',     'Elektricien in Achel en omgeving' ),
 		'tel'        => array( 'Telefoon (zoals getoond)','text',     '011 00 00 00' ),
@@ -75,6 +76,7 @@ function es_bedrijf_velden() {
 		'uren'       => array( 'Openingsuren',            'text',     'Ma–vr 8:00–18:00 · Spoed 24/7' ),
 		'werkgebied' => array( 'Werkgebied (gemeenten, komma\'s)', 'text', 'Achel, Hamont-Achel, Pelt, Lommel, Bocholt, Peer' ),
 	);
+	return apply_filters( 'es_bedrijf_velden_extra', $velden );
 }
 
 function es_info( $key ) {
@@ -181,7 +183,7 @@ function es_is_klant() {
 function es_klant_menu() {
 	if ( ! es_is_klant() ) { return; }
 	global $menu;
-	$toegelaten = array( 'index.php', 'edit.php?post_type=page', 'upload.php', 'es-bedrijfsgegevens' );
+	$toegelaten = array( 'index.php', 'edit.php?post_type=page', 'upload.php', 'es-bedrijfsgegevens', 'es-klanten' );
 	foreach ( (array) $menu as $item ) {
 		if ( isset( $item[2] ) && ! in_array( $item[2], $toegelaten, true ) ) {
 			remove_menu_page( $item[2] );
@@ -621,3 +623,213 @@ add_filter( 'document_title_parts', function ( $parts ) {
 	if ( is_front_page() ) { $parts['title'] = es_info( 'slogan' ); }
 	return $parts;
 } );
+
+
+/* ====================== inc/mijn-elektro.php ====================== */
+/**
+ * Klantenzone "Mijn Elektro" (v2.4).
+ * - Rol 'es_portaal' (Klant-portaal): klant van de elektricien; alleen eigen pagina, geen dashboard.
+ * - Shortcode [es_mijn_pagina]: niet ingelogd → inloggen/registreren; ingelogd → eigen gegevens,
+ *   volgende afspraak, installatie, documenten, berichten, knop Afspraak maken.
+ * - Shortcode [es_afspraak]: Cal.com ingebed (link uit Bedrijfsgegevens) met naam/e-mail/adres vooraf ingevuld.
+ * - Dashboard: menupunt "Klanten" (beheerder én rol Klant) om per klant de gegevens in te vullen.
+ */
+
+function es_portaal_velden() {
+	return array(
+		'es_tel'         => array( 'Telefoon', 'text' ),
+		'es_adres'       => array( 'Adres van de woning', 'text' ),
+		'es_installatie' => array( 'Mijn installatie (wat we van de woning weten; één punt per regel)', 'textarea' ),
+		'es_afspraak'    => array( 'Volgende afspraak (tekst, bv. "di 2 dec 9:00–10:00: keuring")', 'text' ),
+		'es_berichten'   => array( 'Berichten (één per regel, nieuwste bovenaan)', 'textarea' ),
+		'es_docs'        => array( 'Documenten (PDF uit de mediabibliotheek)', 'docs' ),
+	);
+}
+
+/** Rol Klant-portaal. */
+add_action( 'init', function () {
+	if ( ! get_role( 'es_portaal' ) ) { add_role( 'es_portaal', 'Klant-portaal', array( 'read' => true ) ); }
+	foreach ( array( 'administrator', 'es_klant' ) as $r ) {
+		$role = get_role( $r );
+		if ( $role && ! $role->has_cap( 'es_klanten' ) ) { $role->add_cap( 'es_klanten' ); }
+	}
+} );
+
+function es_is_portaal( $user = null ) {
+	$u = $user ? $user : wp_get_current_user();
+	return $u && in_array( 'es_portaal', (array) $u->roles, true );
+}
+
+/** Portaalklant: geen admin-balk, geen dashboard, na inloggen naar Mijn Elektro. */
+add_filter( 'show_admin_bar', function ( $show ) { return es_is_portaal() ? false : $show; } );
+add_action( 'admin_init', function () {
+	if ( es_is_portaal() && ! wp_doing_ajax() ) { wp_safe_redirect( home_url( '/mijn-elektro/' ) ); exit; }
+} );
+add_filter( 'login_redirect', function ( $url, $req, $user ) {
+	return ( $user instanceof WP_User && es_is_portaal( $user ) ) ? home_url( '/mijn-elektro/' ) : $url;
+}, 20, 3 );
+
+/** Registratie en wijzigingen vanuit de pagina (formulieren posten naar dezelfde pagina). */
+add_action( 'template_redirect', function () {
+	if ( 'POST' !== $_SERVER['REQUEST_METHOD'] || empty( $_POST['es_actie'] ) ) { return; }
+	$actie = sanitize_key( $_POST['es_actie'] );
+	$terug = home_url( '/mijn-elektro/' );
+
+	if ( 'registreren' === $actie ) {
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', 'es_registreren' ) ) { wp_die( 'Ongeldige aanvraag.' ); }
+		if ( ! empty( $_POST['es_website'] ) ) { wp_safe_redirect( $terug ); exit; } // honingpot tegen bots
+		$naam  = sanitize_text_field( $_POST['es_naam'] ?? '' );
+		$email = sanitize_email( $_POST['es_email'] ?? '' );
+		$pw    = (string) ( $_POST['es_pw'] ?? '' );
+		$fout  = '';
+		if ( ! $naam || ! is_email( $email ) ) { $fout = 'Vul uw naam en een geldig e-mailadres in.'; }
+		elseif ( strlen( $pw ) < 8 ) { $fout = 'Kies een wachtwoord van minstens 8 tekens.'; }
+		elseif ( email_exists( $email ) ) { $fout = 'Er bestaat al een account met dit e-mailadres. Log in, of vraag een nieuw wachtwoord.'; }
+		if ( $fout ) { wp_safe_redirect( add_query_arg( 'es_fout', rawurlencode( $fout ), $terug ) ); exit; }
+		$login = sanitize_user( strtolower( current( explode( '@', $email ) ) ), true );
+		$basis = $login ? $login : 'klant'; $i = 1;
+		while ( username_exists( $login ) ) { $login = $basis . $i++; }
+		$id = wp_insert_user( array( 'user_login' => $login, 'user_email' => $email, 'user_pass' => $pw, 'display_name' => $naam, 'first_name' => $naam, 'role' => 'es_portaal' ) );
+		if ( is_wp_error( $id ) ) { wp_safe_redirect( add_query_arg( 'es_fout', rawurlencode( $id->get_error_message() ), $terug ) ); exit; }
+		update_user_meta( $id, 'es_tel', sanitize_text_field( $_POST['es_tel'] ?? '' ) );
+		update_user_meta( $id, 'es_adres', sanitize_text_field( $_POST['es_adres'] ?? '' ) );
+		update_user_meta( $id, 'es_berichten', date_i18n( 'd-m-Y' ) . ': account aangemaakt' );
+		wp_mail( $email, 'Welkom bij Mijn Elektro – ' . es_info( 'naam' ), "Beste $naam,\n\nUw account bij " . es_info( 'naam' ) . " is aangemaakt. U kunt inloggen op " . $terug . " met uw e-mailadres.\n\nMet vriendelijke groeten,\n" . es_info( 'naam' ) . "\n" . es_info( 'tel' ) );
+		wp_mail( es_info( 'email' ), 'Nieuwe klant op Mijn Elektro: ' . $naam, "Naam: $naam\nE-mail: $email\nTelefoon: " . sanitize_text_field( $_POST['es_tel'] ?? '' ) . "\nAdres: " . sanitize_text_field( $_POST['es_adres'] ?? '' ) );
+		wp_set_current_user( $id ); wp_set_auth_cookie( $id );
+		wp_safe_redirect( add_query_arg( 'es_ok', 'welkom', $terug ) ); exit;
+	}
+
+	if ( 'gegevens' === $actie && is_user_logged_in() ) {
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', 'es_gegevens' ) ) { wp_die( 'Ongeldige aanvraag.' ); }
+		$id = get_current_user_id();
+		update_user_meta( $id, 'es_tel', sanitize_text_field( $_POST['es_tel'] ?? '' ) );
+		update_user_meta( $id, 'es_adres', sanitize_text_field( $_POST['es_adres'] ?? '' ) );
+		wp_safe_redirect( add_query_arg( 'es_ok', 'gegevens', $terug ) ); exit;
+	}
+} );
+
+/** Shortcode [es_mijn_pagina]. */
+add_shortcode( 'es_mijn_pagina', function () {
+	$terug = home_url( '/mijn-elektro/' );
+	$html  = '<div class="es-portaal">';
+	if ( ! empty( $_GET['es_fout'] ) ) { $html .= '<p class="es-portaal__fout">' . esc_html( wp_unslash( $_GET['es_fout'] ) ) . '</p>'; }
+	if ( ! empty( $_GET['es_ok'] ) ) { $html .= '<p class="es-portaal__ok">' . ( 'welkom' === $_GET['es_ok'] ? 'Welkom! Uw account is aangemaakt; u bent ingelogd.' : 'Opgeslagen.' ) . '</p>'; }
+
+	if ( ! is_user_logged_in() ) {
+		$html .= '<div class="es-portaal__kolommen"><div class="es-portaal__kaart"><h2>Inloggen</h2>';
+		$html .= wp_login_form( array( 'echo' => false, 'redirect' => $terug, 'label_username' => 'E-mailadres of gebruikersnaam', 'label_password' => 'Wachtwoord', 'label_log_in' => 'Inloggen', 'remember' => true, 'label_remember' => 'Onthoud mij' ) );
+		$html .= '<p><a href="' . esc_url( wp_lostpassword_url( $terug ) ) . '">Wachtwoord vergeten?</a></p></div>';
+		$html .= '<div class="es-portaal__kaart"><h2>Nieuwe klant? Registreer</h2><form method="post" action="' . esc_url( $terug ) . '">' . wp_nonce_field( 'es_registreren', '_wpnonce', true, false ) . '<input type="hidden" name="es_actie" value="registreren"><input type="text" name="es_website" style="display:none" tabindex="-1" autocomplete="off">';
+		$html .= '<p><label>Naam<br><input type="text" name="es_naam" required></label></p><p><label>E-mail<br><input type="email" name="es_email" required></label></p><p><label>Telefoon<br><input type="tel" name="es_tel"></label></p><p><label>Adres van de woning<br><input type="text" name="es_adres" placeholder="Straat nr, postcode gemeente"></label></p><p><label>Wachtwoord (min. 8 tekens)<br><input type="password" name="es_pw" minlength="8" required></label></p><p><button type="submit" class="wp-element-button">Account aanmaken</button></p></form></div></div>';
+		return $html . '</div>';
+	}
+
+	$u = wp_get_current_user(); $id = $u->ID; $m = function ( $k ) use ( $id ) { return (string) get_user_meta( $id, $k, true ); };
+	$html .= '<div class="es-portaal__kop"><h2>Welkom, ' . esc_html( $u->display_name ) . '</h2><p>' . esc_html( $m( 'es_adres' ) ?: 'Adres nog niet ingevuld' ) . ' · ' . esc_html( $m( 'es_tel' ) ?: 'telefoon nog niet ingevuld' ) . ' · <a href="' . esc_url( wp_logout_url( home_url( '/' ) ) ) . '">Uitloggen</a></p></div>';
+
+	// Volgende afspraak
+	$html .= '<div class="es-portaal__kaart es-portaal__afspraak"><h3>Volgende afspraak</h3>';
+	$html .= $m( 'es_afspraak' ) ? '<p class="es-portaal__groot">' . esc_html( $m( 'es_afspraak' ) ) . '</p><p>Verzetten of annuleren: via de link in uw bevestigingsmail, of bel ' . esc_html( es_info( 'tel' ) ) . '.</p>' : '<p>Geen afspraak gepland.</p>';
+	$html .= '<p><a class="wp-element-button" href="' . esc_url( home_url( '/afspraak/' ) ) . '">Afspraak maken</a></p></div>';
+
+	$html .= '<div class="es-portaal__kolommen">';
+	// Installatie
+	$html .= '<div class="es-portaal__kaart"><h3>Mijn installatie</h3>';
+	$inst = array_filter( array_map( 'trim', explode( "\n", $m( 'es_installatie' ) ) ) );
+	$html .= $inst ? '<ul>' . implode( '', array_map( function ( $l ) { return '<li>' . esc_html( $l ) . '</li>'; }, $inst ) ) . '</ul>' : '<p>Nog niets genoteerd. Na ons eerste bezoek vullen we dit aan.</p>';
+	$html .= '</div>';
+	// Documenten
+	$html .= '<div class="es-portaal__kaart"><h3>Documenten</h3>';
+	$ids = array_filter( array_map( 'intval', explode( ',', $m( 'es_docs' ) ) ) ); $li = '';
+	foreach ( $ids as $aid ) { $url = wp_get_attachment_url( $aid ); if ( $url ) { $li .= '<li><a href="' . esc_url( $url ) . '" target="_blank" rel="noopener">' . esc_html( get_the_title( $aid ) ) . '</a> (PDF)</li>'; } }
+	$html .= $li ? '<ul>' . $li . '</ul>' : '<p>Nog geen documenten. Offertes, facturen en keuringsverslagen komen hier.</p>';
+	$html .= '</div></div>';
+	// Berichten
+	$html .= '<div class="es-portaal__kaart"><h3>Berichten</h3>';
+	$ber = array_filter( array_map( 'trim', explode( "\n", $m( 'es_berichten' ) ) ) );
+	$html .= $ber ? '<ul>' . implode( '', array_map( function ( $l ) { return '<li>' . esc_html( $l ) . '</li>'; }, $ber ) ) . '</ul>' : '<p>Nog geen berichten.</p>';
+	$html .= '</div>';
+	// Gegevens wijzigen
+	$html .= '<div class="es-portaal__kaart"><h3>Mijn gegevens wijzigen</h3><form method="post" action="' . esc_url( $terug ) . '">' . wp_nonce_field( 'es_gegevens', '_wpnonce', true, false ) . '<input type="hidden" name="es_actie" value="gegevens">';
+	$html .= '<p><label>Telefoon<br><input type="tel" name="es_tel" value="' . esc_attr( $m( 'es_tel' ) ) . '"></label></p><p><label>Adres van de woning<br><input type="text" name="es_adres" value="' . esc_attr( $m( 'es_adres' ) ) . '"></label></p><p><button type="submit" class="wp-element-button">Opslaan</button></p></form>';
+	$html .= '<p>Naam of e-mailadres wijzigen? Mail <a href="mailto:' . esc_attr( es_info( 'email' ) ) . '">' . esc_html( es_info( 'email' ) ) . '</a>.</p></div>';
+	return $html . '</div>';
+} );
+
+/** Shortcode [es_afspraak]: Cal.com (link in Bedrijfsgegevens) met gegevens vooraf ingevuld. */
+add_shortcode( 'es_afspraak', function () {
+	$cal = trim( es_info( 'calcom' ) );
+	if ( ! $cal || false === strpos( $cal, 'cal.com' ) ) {
+		return '<div class="es-portaal"><p>Online afspraken maken is nog niet geactiveerd. Bel <a href="tel:' . esc_attr( es_info( 'tel_link' ) ) . '">' . esc_html( es_info( 'tel' ) ) . '</a> of mail <a href="mailto:' . esc_attr( es_info( 'email' ) ) . '">' . esc_html( es_info( 'email' ) ) . '</a>.</p></div>';
+	}
+	$args = array();
+	if ( is_user_logged_in() ) {
+		$u = wp_get_current_user();
+		$args = array( 'name' => $u->display_name, 'email' => $u->user_email, 'notes' => 'Adres: ' . get_user_meta( $u->ID, 'es_adres', true ) . ' · Tel: ' . get_user_meta( $u->ID, 'es_tel', true ) );
+	}
+	$url = add_query_arg( array_map( 'rawurlencode', $args ), $cal );
+	$terug = is_user_logged_in() ? '<p><a href="' . esc_url( home_url( '/mijn-elektro/' ) ) . '">‹ Terug naar Mijn Elektro</a></p>' : '';
+	return '<div class="es-portaal">' . $terug . '<iframe class="es-calcom" src="' . esc_url( $url ) . '" title="Afspraak maken" loading="lazy"></iframe><p><a href="' . esc_url( $url ) . '" target="_blank" rel="noopener">Opent de agenda niet? Klik hier.</a></p></div>';
+} );
+
+/** Veld "Cal.com-link" bij Bedrijfsgegevens. */
+add_filter( 'es_bedrijf_velden_extra', function ( $v ) {
+	$v['calcom'] = array( 'Cal.com-link voor afspraken (bv. https://cal.com/elektro-selders/afspraak)', 'text', '' );
+	return $v;
+} );
+
+/** Profielvelden in Gebruikers → profiel (beheerder) en menupunt Klanten (beheerder + rol Klant). */
+function es_portaal_formulier( $user_id ) {
+	$out = '<table class="form-table">';
+	foreach ( es_portaal_velden() as $k => $v ) {
+		$val = (string) get_user_meta( $user_id, $k, true );
+		$out .= '<tr><th><label for="' . esc_attr( $k ) . '">' . esc_html( $v[0] ) . '</label></th><td>';
+		if ( 'textarea' === $v[1] ) { $out .= '<textarea class="large-text" rows="4" id="' . esc_attr( $k ) . '" name="' . esc_attr( $k ) . '">' . esc_textarea( $val ) . '</textarea>'; }
+		elseif ( 'docs' === $v[1] ) {
+			$sel = array_filter( array_map( 'intval', explode( ',', $val ) ) );
+			$pdfs = get_posts( array( 'post_type' => 'attachment', 'post_mime_type' => 'application/pdf', 'posts_per_page' => 200, 'post_status' => 'inherit', 'orderby' => 'date', 'order' => 'DESC' ) );
+			$out .= '<select multiple size="6" name="' . esc_attr( $k ) . '[]" id="' . esc_attr( $k ) . '" style="min-width:320px">';
+			foreach ( $pdfs as $p ) { $out .= '<option value="' . $p->ID . '"' . ( in_array( $p->ID, $sel, true ) ? ' selected' : '' ) . '>' . esc_html( $p->post_title ) . '</option>'; }
+			$out .= '</select><p class="description">Ctrl/Cmd ingedrukt houden om meerdere te kiezen. PDF eerst uploaden via Media.</p>';
+		} else { $out .= '<input class="regular-text" type="text" id="' . esc_attr( $k ) . '" name="' . esc_attr( $k ) . '" value="' . esc_attr( $val ) . '">'; }
+		$out .= '</td></tr>';
+	}
+	return $out . '</table>';
+}
+function es_portaal_opslaan( $user_id ) {
+	foreach ( es_portaal_velden() as $k => $v ) {
+		if ( ! isset( $_POST[ $k ] ) ) { continue; }
+		if ( 'docs' === $v[1] ) { update_user_meta( $user_id, $k, implode( ',', array_map( 'intval', (array) $_POST[ $k ] ) ) ); }
+		elseif ( 'textarea' === $v[1] ) { update_user_meta( $user_id, $k, sanitize_textarea_field( wp_unslash( $_POST[ $k ] ) ) ); }
+		else { update_user_meta( $user_id, $k, sanitize_text_field( wp_unslash( $_POST[ $k ] ) ) ); }
+	}
+}
+add_action( 'show_user_profile', function ( $u ) { if ( es_is_portaal( $u ) ) { echo '<h2>Mijn Elektro</h2>' . es_portaal_formulier( $u->ID ); } } );
+add_action( 'edit_user_profile', function ( $u ) { if ( es_is_portaal( $u ) ) { echo '<h2>Mijn Elektro</h2>' . es_portaal_formulier( $u->ID ); } } );
+add_action( 'personal_options_update', function ( $id ) { if ( current_user_can( 'edit_user', $id ) ) { es_portaal_opslaan( $id ); } } );
+add_action( 'edit_user_profile_update', function ( $id ) { if ( current_user_can( 'edit_user', $id ) ) { es_portaal_opslaan( $id ); } } );
+
+add_action( 'admin_menu', function () {
+	add_menu_page( 'Klanten', 'Klanten', 'es_klanten', 'es-klanten', 'es_klanten_pagina', 'dashicons-groups', 26 );
+} );
+function es_klanten_pagina() {
+	if ( ! current_user_can( 'es_klanten' ) ) { return; }
+	$uid = isset( $_GET['klant'] ) ? (int) $_GET['klant'] : 0;
+	echo '<div class="wrap"><h1>Klanten (Mijn Elektro)</h1>';
+	if ( $uid && es_is_portaal( get_userdata( $uid ) ) ) {
+		if ( ! empty( $_POST['es_klant_opslaan'] ) && wp_verify_nonce( $_POST['_wpnonce'] ?? '', 'es_klant_' . $uid ) ) { es_portaal_opslaan( $uid ); echo '<div class="notice notice-success"><p>Opgeslagen.</p></div>'; }
+		$u = get_userdata( $uid );
+		echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=es-klanten' ) ) . '">‹ Alle klanten</a></p><h2>' . esc_html( $u->display_name ) . ' — ' . esc_html( $u->user_email ) . '</h2>';
+		echo '<form method="post">' . wp_nonce_field( 'es_klant_' . $uid, '_wpnonce', true, false ) . es_portaal_formulier( $uid ) . '<p><button class="button button-primary" name="es_klant_opslaan" value="1">Opslaan</button></p></form></div>';
+		return;
+	}
+	$users = get_users( array( 'role' => 'es_portaal', 'orderby' => 'registered', 'order' => 'DESC' ) );
+	echo '<p>Klanten die zich op de site geregistreerd hebben. Klik op een naam om adres, installatie, afspraak, documenten en berichten in te vullen; de klant ziet dat meteen op zijn pagina.</p>';
+	echo '<table class="widefat striped"><thead><tr><th>Naam</th><th>E-mail</th><th>Telefoon</th><th>Adres</th><th>Volgende afspraak</th><th>Geregistreerd</th></tr></thead><tbody>';
+	foreach ( $users as $u ) {
+		echo '<tr><td><a href="' . esc_url( admin_url( 'admin.php?page=es-klanten&klant=' . $u->ID ) ) . '"><strong>' . esc_html( $u->display_name ) . '</strong></a></td><td>' . esc_html( $u->user_email ) . '</td><td>' . esc_html( get_user_meta( $u->ID, 'es_tel', true ) ) . '</td><td>' . esc_html( get_user_meta( $u->ID, 'es_adres', true ) ) . '</td><td>' . esc_html( get_user_meta( $u->ID, 'es_afspraak', true ) ) . '</td><td>' . esc_html( date_i18n( 'd-m-Y', strtotime( $u->user_registered ) ) ) . '</td></tr>';
+	}
+	if ( ! $users ) { echo '<tr><td colspan="6">Nog geen klanten.</td></tr>'; }
+	echo '</tbody></table></div>';
+}

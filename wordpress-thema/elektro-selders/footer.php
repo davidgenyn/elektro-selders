@@ -21,6 +21,7 @@
         <li><a href="<?php echo esc_url( home_url( '/diensten/' ) ); ?>">Diensten</a></li>
         <li><a href="<?php echo esc_url( home_url( '/over-ons/' ) ); ?>">Over ons</a></li>
         <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/mijn-elektro/' ) ); ?>">Mijn Elektro</a></li>
       </ul>
     </div>
   </div>
