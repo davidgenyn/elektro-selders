@@ -10,7 +10,7 @@
 <header class="es-header">
   <div class="es-header__inner">
     <a class="es-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-      <img src="<?php echo esc_url( get_template_directory_uri() . '/logo.png' ); ?>" alt="">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/logo.png' ); ?>" alt="" width="178" height="304">
       <span><?php echo esc_html( es_info( 'naam' ) ); ?></span>
     </a>
     <button class="es-nav__toggle" aria-label="Menu" onclick="document.getElementById('es-nav').classList.toggle('is-open')">&#9776;</button>

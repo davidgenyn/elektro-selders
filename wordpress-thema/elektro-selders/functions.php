@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.2' );
+define( 'ES_THEME_VERSION', '2.3' );
 
 
 function es_setup() {
