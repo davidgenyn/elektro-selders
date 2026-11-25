@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.0' );
+define( 'ES_THEME_VERSION', '2.1' );
 
 
 function es_setup() {
@@ -317,7 +317,7 @@ add_action( 'init', function () {
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide",' . $lock . '} -->
-<div class="wp-block-columns alignwide">' . $kaart( 'Installatie', 'Nieuwbouw, renovatie en het vervangen van uw zekeringkast. Volledig volgens het AREI.', '/diensten/' ) . $kaart( 'Storingen', '24/7 spoeddienst, kortsluiting opsporen en herstellen, elektrische keuring.', '/diensten/' ) . $kaart( 'Energie', 'Laadpaal voor uw elektrische wagen, zonnepanelen aansluiten, domotica.', '/diensten/' ) . '</div>
+<div class="wp-block-columns alignwide">' . $kaart( 'Installatie', 'Nieuwbouw, renovatie en het vervangen van uw zekeringkast. Volledig volgens het AREI.', '/diensten/installatie/' ) . $kaart( 'Storingen', '24/7 spoeddienst, kortsluiting opsporen en herstellen, elektrische keuring.', '/diensten/storingen/' ) . $kaart( 'Energie', 'Laadpaal voor uw elektrische wagen, zonnepanelen aansluiten, domotica.', '/diensten/energie/' ) . '</div>
 <!-- /wp:columns -->
 
 <!-- wp:group {"align":"full","backgroundColor":"es-light",' . $lock . ',"layout":{"type":"constrained"}} -->
@@ -351,18 +351,148 @@ add_action( 'init', function () {
 <ul class="wp-block-list">' . $li . '</ul>
 <!-- /wp:list -->';
 	};
-	$diensten = '<!-- wp:paragraph {' . $lock . '} -->
-<p>Van een nieuwe stopcontact tot een volledige installatie: we doen het allemaal, met vaste prijzen en een keuringsattest na afloop.</p>
-<!-- /wp:paragraph -->
-' . $dienst( 'Installatie', 'Nieuwbouw, renovatie, zekeringkast vervangen. Volgens het AREI, met schema en keuring.', array( 'Volledige installatie bij nieuwbouw', 'Renovatie van bestaande installaties', 'Zekeringkast en differentieel vervangen', 'Extra stopcontacten en verlichting' ) )
- . $dienst( 'Storingen en spoed', 'Dag en nacht bereikbaar, meestal binnen het uur ter plaatse.', array( '24/7 spoeddienst', 'Stroompanne, afspringende differentieel', 'Kortsluiting opsporen', 'Keuring en herstel van opmerkingen' ) )
- . $dienst( 'Energie', 'Laadpaal, zonnepanelen, thuisbatterij, domotica.', array( 'Laadpaal plaatsen en aanmelden bij Fluvius', 'Aansluiting omvormer en batterij', 'Domotica: verlichting, verwarming, rolluiken' ) ) . '
+	/** FAQ als uitklapblokken (Details-blok). Het thema maakt hieruit automatisch FAQPage-structured data (zie inc/seo.php). */
+	$faq = function ( $vragen ) use ( $lock ) {
+		$out = '<!-- wp:heading {' . $lock . '} -->
+<h2 class="wp-block-heading">Veelgestelde vragen</h2>
+<!-- /wp:heading -->';
+		foreach ( $vragen as $v ) {
+			$out .= '
+
+<!-- wp:details {' . $lock . '} -->
+<details class="wp-block-details"><summary>' . esc_html( $v[0] ) . '</summary><!-- wp:paragraph {' . $lock . '} -->
+<p>' . esc_html( $v[1] ) . '</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->';
+		}
+		return $out;
+	};
+	$cta = '
 
 <!-- wp:buttons {' . $lock . '} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"es-blue",' . $lock . '} -->
 <div class="wp-block-button"><a class="wp-block-button__link has-es-blue-background-color has-background wp-element-button" href="/contact/">Gratis offerte aanvragen</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->';
+
+	/** Dienstengroep op de overzichtspagina: kop (link naar de dienstpagina), tekst, lijst. */
+	$dienst = function ( $titel, $link, $tekst, $items ) use ( $lock ) {
+		$li = '';
+		foreach ( $items as $i ) { $li .= '<!-- wp:list-item {' . $lock . '} --><li>' . esc_html( $i ) . '</li><!-- /wp:list-item -->'; }
+		return '
+
+<!-- wp:heading {' . $lock . '} -->
+<h2 class="wp-block-heading"><a href="' . esc_attr( $link ) . '">' . esc_html( $titel ) . '</a></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {' . $lock . '} -->
+<p>' . esc_html( $tekst ) . '</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {' . $lock . '} -->
+<ul class="wp-block-list">' . $li . '</ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {' . $lock . '} -->
+<p><a href="' . esc_attr( $link ) . '">Meer over ' . esc_html( strtolower( $titel ) ) . ' ›</a></p>
+<!-- /wp:paragraph -->';
+	};
+	$diensten = '<!-- wp:paragraph {' . $lock . '} -->
+<p>Van een los stopcontact tot een volledige nieuwbouwinstallatie. Alles volgens het AREI, met vaste prijs vooraf.</p>
+<!-- /wp:paragraph -->'
+ . $dienst( 'Installatie', '/diensten/installatie/', 'Wij leggen de volledige elektrische installatie aan voor nieuwbouw en renovatie, en vervangen verouderde zekeringkasten. U krijgt een schema en een keuringsattest.', array( 'Nieuwbouw en renovatie', 'Zekeringkast vervangen', 'Extra stopcontacten en verlichting' ) )
+ . $dienst( 'Storingen en spoed', '/diensten/storingen/', 'Kortsluiting, uitgevallen kring of stroompanne? Wij zijn 24/7 bereikbaar en meestal binnen het uur ter plaatse in Hamont-Achel, Pelt, Lommel en Bocholt.', array( '24/7 spoeddienst', 'Kortsluiting opsporen en herstellen', 'Elektrische keuring en opmerkingen oplossen' ) )
+ . $dienst( 'Energie en toekomst', '/diensten/energie/', 'Laadpaal voor uw elektrische wagen, aansluiting van zonnepanelen en thuisbatterij, slimme bediening van verlichting en verwarming.', array( 'Laadpaal plaatsen en aanmelden', 'Zonnepanelen en thuisbatterij aansluiten', 'Domotica' ) )
+ . '
+
+' . $faq( array(
+	array( 'Hoe snel zijn jullie ter plaatse bij een storing?', "Bij een stroompanne of kortsluiting zijn we in Hamont-Achel, Pelt, Lommel en Bocholt meestal binnen het uur ter plaatse, ook 's avonds en in het weekend." ),
+	array( 'Wat kost een elektrische keuring?', 'De keuring gebeurt door een erkend keuringsorganisme. Wij bereiden uw installatie voor, lossen opmerkingen op en regelen de afspraak. De prijs hangt af van de grootte van de installatie; u krijgt die vooraf.' ),
+	array( 'Wanneer moet mijn zekeringkast vervangen worden?', 'Als er nog schroefzekeringen in zitten, als er geen differentieelschakelaar is, of als de keuring opmerkingen gaf. Een kast ouder dan 25 jaar laten we best eens nakijken.' ),
+	array( 'Plaatsen jullie ook laadpalen?', 'Ja. We bekijken eerst of uw aansluiting het aankan, plaatsen de laadpaal en regelen de aanmelding bij de netbeheerder.' ),
+) ) . $cta;
+
+	/** Dienstpagina: intro, foto, secties (kop + tekst), lijst "Wat we doen", FAQ, knop. */
+	$dienstpagina = function ( $intro, $alt, $secties, $items, $vragen ) use ( $lock, $img, $faq, $cta ) {
+		$out = '<!-- wp:paragraph {' . $lock . '} -->
+<p>' . esc_html( $intro ) . '</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"sizeSlug":"large",' . $lock . '} -->
+<figure class="wp-block-image size-large"><img src="' . esc_url( $img ) . '" alt="' . esc_attr( $alt ) . '"/></figure>
+<!-- /wp:image -->';
+		foreach ( $secties as $sec ) {
+			$out .= '
+
+<!-- wp:heading {' . $lock . '} -->
+<h2 class="wp-block-heading">' . esc_html( $sec[0] ) . '</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {' . $lock . '} -->
+<p>' . esc_html( $sec[1] ) . '</p>
+<!-- /wp:paragraph -->';
+		}
+		$li = '';
+		foreach ( $items as $i ) { $li .= '<!-- wp:list-item {' . $lock . '} --><li>' . esc_html( $i ) . '</li><!-- /wp:list-item -->'; }
+		$out .= '
+
+<!-- wp:heading {' . $lock . '} -->
+<h2 class="wp-block-heading">Wat we doen</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list {' . $lock . '} -->
+<ul class="wp-block-list">' . $li . '</ul>
+<!-- /wp:list -->
+
+' . $faq( $vragen ) . $cta;
+		return $out;
+	};
+
+	$d_installatie = $dienstpagina(
+		'Een nieuwe woning, een renovatie of een zekeringkast die aan vervanging toe is: Elektro Selders legt de volledige elektrische installatie aan, van de aansluiting tot het laatste stopcontact. U krijgt vooraf een vaste prijs, een duidelijk schema en na afloop een keuringsattest zonder opmerkingen.',
+		'Installatie',
+		array(
+			array( 'Nieuwbouw', 'Bij nieuwbouw werken we vanaf het bouwplan. We bespreken met u waar stopcontacten, verlichting, netwerkaansluitingen en bediening komen, voorzien voldoende kringen voor keuken, badkamer en buiten, en leggen leidingen zodat een laadpaal, zonnepanelen of domotica later zonder breekwerk kunnen. Alles volgens het AREI, met het officiële schema dat u nodig hebt voor de keuring en de verkoop.' ),
+			array( 'Renovatie', 'Bij een renovatie in een bestaande woning in Hamont-Achel, Neerpelt of Lommel bekijken we eerst wat bruikbaar is en wat vervangen moet worden. Oude kabels met stoffen isolatie, aftakdozen zonder aarding en kringen zonder differentieel gaan eruit. We werken kamer per kamer, zodat u in de woning kunt blijven, en combineren het werk waar mogelijk met de andere aannemers.' ),
+			array( 'Zekeringkast vervangen', 'Een zekeringkast met schroefzekeringen, zonder differentieelschakelaar of met opmerkingen van de keurder vervangen we in één dag. U krijgt een nieuwe kast met automaten per kring, een 30 mA-differentieel voor badkamer en keuken, een correcte aarding en een bijgewerkt schema. Meestal is dit de goedkoopste manier om een oudere installatie weer in orde te krijgen.' ),
+		),
+		array( 'Volledige installatie bij nieuwbouw', 'Renovatie van bestaande installaties', 'Zekeringkast en differentieel vervangen', 'Extra stopcontacten, verlichting en buitenaansluitingen', 'Aarding en equipotentiaalverbinding', 'Voorbereiding en begeleiding van de keuring' ),
+		array(
+			array( 'Hoe lang duurt een volledige installatie?', 'Voor een gemiddelde woning rekent u op één tot twee weken, verspreid over de ruwbouw- en afwerkingsfase. Een zekeringkast vervangen we op één dag.' ),
+			array( 'Moet ik zelf een keurder bellen?', 'Nee. Wij regelen de afspraak met een erkend keuringsorganisme en zijn aanwezig bij de keuring.' ),
+			array( 'Werken jullie ook buiten Achel?', 'Ja: Hamont-Achel, Pelt (Neerpelt en Overpelt), Lommel, Bocholt en Peer.' ),
+		)
+	);
+	$d_storingen = $dienstpagina(
+		'Valt de stroom uit, springt de differentieel telkens af of ruikt u iets verbrands bij de zekeringkast? Bel ons. We zijn dag en nacht bereikbaar, ook in het weekend, en zijn in Hamont-Achel, Pelt, Lommel en Bocholt meestal binnen het uur ter plaatse.',
+		'Storingen en spoed',
+		array(
+			array( 'Stroompanne en differentieel', 'Een differentieel die afspringt wijst meestal op een lek in één toestel of kring: een vaatwasser, een buitenstopcontact dat nat werd, een oude kabel. We meten kring per kring tot we de oorzaak hebben, herstellen wat kapot is en laten uw installatie veilig achter. Geen onderdelen vervangen "voor het geval dat".' ),
+			array( 'Kortsluiting en brandgeur', 'Bij een kortsluiting of een geur van verbrand plastic schakelt u de hoofdschakelaar uit en belt u ons. Verhitte contacten in stopcontacten en verdeeldozen zijn een van de meest voorkomende oorzaken van woningbrand. We sporen het probleem op met een warmtecamera en vervangen de aangetaste onderdelen.' ),
+			array( 'Elektrische keuring en opmerkingen', 'Bij verkoop van een woning in Achel of omgeving, na een zware verbouwing en om de 25 jaar is een keuring verplicht. Kreeg u een verslag met opmerkingen? We lossen ze op, maken het schema in orde en regelen de herkeuring.' ),
+		),
+		array( '24/7 spoeddienst, ook weekend en feestdagen', 'Stroompanne, afspringende differentieel of automaat', 'Kortsluiting en verhitte contacten opsporen', 'Keuring voorbereiden en opmerkingen herstellen', 'Herstelling na waterschade of blikseminslag', 'Defecte verlichting, stopcontacten en schakelaars' ),
+		array(
+			array( 'Wat kost een spoedinterventie?', 'U krijgt aan de telefoon een vaste prijs voor de verplaatsing en het eerste uur. Buiten de kantooruren geldt een toeslag die we vooraf noemen.' ),
+			array( 'Mag ik zelf de zekeringkast openen?', 'Nee. Zet enkel de hoofdschakelaar uit en laat de rest aan ons.' ),
+			array( 'Hoe snel zijn jullie er?', 'In Hamont-Achel, Pelt, Lommel en Bocholt meestal binnen het uur; in Peer en verder binnen de twee uur.' ),
+		)
+	);
+	$d_energie = $dienstpagina(
+		'Elektrisch rijden, zelf stroom opwekken en uw verbruik slim sturen: dat vraagt een installatie die het aankan. Elektro Selders bekijkt eerst uw aansluiting en zekeringkast, en plaatst daarna laadpaal, omvormer, batterij of domotica zodat alles samen werkt.',
+		'Energie',
+		array(
+			array( 'Laadpaal thuis', 'We controleren of uw aansluiting en kast een laadpaal van 7,4 of 11 kW aankunnen, plaatsen een aparte kring met de juiste beveiliging, monteren de laadpaal en melden ze aan bij Fluvius. Met een slimme laadpaal laadt u bij voorkeur op uw eigen zonnestroom of op de goedkoopste uren van uw dynamisch contract.' ),
+			array( 'Zonnepanelen en thuisbatterij', 'Wij verzorgen de elektrische kant van uw zonne-installatie: aansluiting van de omvormer, beveiliging, de digitale meter en de aanmelding van de installatie. Hebt u al panelen en wilt u een thuisbatterij? We berekenen welke capaciteit zinvol is voor uw verbruik in plaats van de grootste te verkopen.' ),
+			array( 'Domotica en slimme bediening', 'Verlichting die zich aanpast, verwarming die uit gaat als u vertrekt, rolluiken op tijd: we werken met open systemen die u zelf via uw telefoon bedient, zonder abonnement. Bij een nieuwbouw in Pelt of Lommel voorzien we de bekabeling meteen; in een bestaande woning kiezen we voor draadloze onderdelen waar bekabelen niet lukt.' ),
+		),
+		array( 'Laadpaal plaatsen en aanmelden bij Fluvius', 'Aansluiting van omvormer, zonnepanelen en thuisbatterij', 'Digitale meter en energiebeheer', 'Domotica: verlichting, verwarming, rolluiken, toegang', 'Advies over verzwaring van de aansluiting' ),
+		array(
+			array( 'Kan mijn installatie een laadpaal aan?', 'Meestal wel met een monofasige aansluiting van 40 A; bij een zwaardere laadpaal of een warmtepomp bekijken we een verzwaring naar driefasig. We meten dat eerst.' ),
+			array( 'Plaatsen jullie ook de zonnepanelen zelf?', 'We werken samen met een vaste plaatser voor het dakwerk en doen zelf de elektrische aansluiting en de keuring.' ),
+			array( 'Is er premie voor een laadpaal?', 'De regels veranderen regelmatig; we zeggen u bij de offerte wat op dat moment geldt.' ),
+		)
+	);
 
 	$overons = '<!-- wp:columns {"align":"wide",' . $lock . '} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {' . $lock . '} -->
@@ -394,6 +524,9 @@ add_action( 'init', function () {
 	register_block_pattern( 'elektro-selders/diensten', array( 'title' => 'Sjabloon: Diensten',  'categories' => array( 'elektro-selders' ), 'content' => $diensten ) );
 	register_block_pattern( 'elektro-selders/over-ons', array( 'title' => 'Sjabloon: Over ons',  'categories' => array( 'elektro-selders' ), 'content' => $overons ) );
 	register_block_pattern( 'elektro-selders/contact',  array( 'title' => 'Sjabloon: Contact',   'categories' => array( 'elektro-selders' ), 'content' => $contact ) );
+	register_block_pattern( 'elektro-selders/dienst-installatie', array( 'title' => 'Sjabloon: Dienst – Installatie', 'categories' => array( 'elektro-selders' ), 'content' => $d_installatie ) );
+	register_block_pattern( 'elektro-selders/dienst-storingen',   array( 'title' => 'Sjabloon: Dienst – Storingen',   'categories' => array( 'elektro-selders' ), 'content' => $d_storingen ) );
+	register_block_pattern( 'elektro-selders/dienst-energie',     array( 'title' => 'Sjabloon: Dienst – Energie',     'categories' => array( 'elektro-selders' ), 'content' => $d_energie ) );
 } );
 
 /** Contactgegevens uit Bedrijfsgegevens, als blok op de contactpagina (shortcode). */
@@ -451,6 +584,29 @@ add_action( 'wp_head', function () {
 	);
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
 }, 2 );
+
+/** FAQPage-structured data: leest de Details-blokken (vraag = samenvatting, antwoord = tekst) van de pagina. Werkt op elke pagina met zo'n blok. */
+function es_faq_uit_blokken( $blocks, &$out ) {
+	foreach ( $blocks as $b ) {
+		if ( 'core/details' === $b['blockName'] ) {
+			$html = $b['innerHTML'];
+			$vraag = preg_match( '/<summary>(.*?)<\/summary>/s', $html, $m ) ? wp_strip_all_tags( $m[1] ) : '';
+			$ant = '';
+			foreach ( $b['innerBlocks'] as $ib ) { $ant .= ' ' . wp_strip_all_tags( render_block( $ib ) ); }
+			$ant = trim( preg_replace( '/\s+/', ' ', $ant ) );
+			if ( $vraag && $ant ) { $out[] = array( '@type' => 'Question', 'name' => $vraag, 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $ant ) ); }
+		} elseif ( ! empty( $b['innerBlocks'] ) ) {
+			es_faq_uit_blokken( $b['innerBlocks'], $out );
+		}
+	}
+}
+add_action( 'wp_head', function () {
+	if ( ! is_singular() ) { return; }
+	$vragen = array();
+	es_faq_uit_blokken( parse_blocks( get_post()->post_content ), $vragen );
+	if ( ! $vragen ) { return; }
+	echo '<script type="application/ld+json">' . wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $vragen ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 3 );
 
 /** Titel: "Paginatitel | Bedrijfsnaam Plaats" als Yoast niet actief is. */
 add_filter( 'document_title_separator', function () { return '|'; } );

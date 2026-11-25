@@ -2,7 +2,7 @@
 Theme Name: Elektro Selders
 Description: Huisstijlthema voor Elektro Selders (wit/blauw). Header, menu en footer zitten in het thema; de klant bewerkt alleen pagina's.
 Author: Weblotus
-Version: 2.0
+Version: 2.1
 Requires at least: 6.4
 Requires PHP: 7.4
 Text Domain: elektro-selders
@@ -172,3 +172,11 @@ body:not(.home) .es-content { padding-top: 2rem; }
 .es-content .wp-block-button.is-style-outline .wp-block-button__link { color: #fff; border-color: #fff; }
 .es-contactinfo p { margin: .3rem 0; }
 .es-content > .alignfull.has-es-light-background-color { padding: 2.5rem 1.25rem; }
+
+/* ---------- v2.1: FAQ (Details-blok) en dienstpagina's ---------- */
+.es-content .wp-block-details { border: 1px solid #DCE6F4; border-radius: 8px; padding: .6rem 1rem; margin: .6rem 0; background: #fff; }
+.es-content .wp-block-details summary { font-weight: 600; cursor: pointer; color: #0F2F5C; }
+.es-content .wp-block-details[open] summary { margin-bottom: .4rem; }
+.es-content .wp-block-details p { margin: 0; }
+.es-content h2 a { color: inherit; text-decoration: none; }
+.es-content h2 a:hover { text-decoration: underline; }
