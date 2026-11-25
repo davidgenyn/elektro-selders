@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.4' );
+define( 'ES_THEME_VERSION', '2.5' );
 
 
 function es_setup() {
@@ -757,20 +757,30 @@ add_shortcode( 'es_mijn_pagina', function () {
 	return $html . '</div>';
 } );
 
-/** Shortcode [es_afspraak]: Cal.com (link in Bedrijfsgegevens) met gegevens vooraf ingevuld. */
+/** Shortcode [es_afspraak]: Cal.com ingebed (officieel embed-script) met naam, e-mail, adres en notitie vooraf ingevuld. */
 add_shortcode( 'es_afspraak', function () {
 	$cal = trim( es_info( 'calcom' ) );
 	if ( ! $cal || false === strpos( $cal, 'cal.com' ) ) {
 		return '<div class="es-portaal"><p>Online afspraken maken is nog niet geactiveerd. Bel <a href="tel:' . esc_attr( es_info( 'tel_link' ) ) . '">' . esc_html( es_info( 'tel' ) ) . '</a> of mail <a href="mailto:' . esc_attr( es_info( 'email' ) ) . '">' . esc_html( es_info( 'email' ) ) . '</a>.</p></div>';
 	}
-	$args = array();
+	$cal_link = trim( preg_replace( '#^https?://(app\.)?cal\.com/#', '', $cal ), '/' ); // bv. "lotusflow" of "lotusflow/offertebezoek"
+	$config = array( 'layout' => 'month_view' );
 	if ( is_user_logged_in() ) {
 		$u = wp_get_current_user();
-		$args = array( 'name' => $u->display_name, 'email' => $u->user_email, 'notes' => 'Adres: ' . get_user_meta( $u->ID, 'es_adres', true ) . ' · Tel: ' . get_user_meta( $u->ID, 'es_tel', true ) );
+		$adres = (string) get_user_meta( $u->ID, 'es_adres', true );
+		$tel   = (string) get_user_meta( $u->ID, 'es_tel', true );
+		$config['name']  = $u->display_name;
+		$config['email'] = $u->user_email;
+		$config['notes'] = trim( 'Tel: ' . $tel );
+		if ( $adres ) { $config['location'] = wp_json_encode( array( 'value' => 'attendeeInPerson', 'optionValue' => $adres ) ); }
 	}
-	$url = add_query_arg( array_map( 'rawurlencode', $args ), $cal );
 	$terug = is_user_logged_in() ? '<p><a href="' . esc_url( home_url( '/mijn-elektro/' ) ) . '">‹ Terug naar Mijn Elektro</a></p>' : '';
-	return '<div class="es-portaal">' . $terug . '<iframe class="es-calcom" src="' . esc_url( $url ) . '" title="Afspraak maken" loading="lazy"></iframe><p><a href="' . esc_url( $url ) . '" target="_blank" rel="noopener">Opent de agenda niet? Klik hier.</a></p></div>';
+	$fallback = add_query_arg( array_map( 'rawurlencode', array_intersect_key( $config, array( 'name' => 1, 'email' => 1, 'notes' => 1 ) ) ), $cal );
+	$js = '(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");'
+		. 'Cal("init", { origin: "https://cal.com" });'
+		. 'Cal("inline", { elementOrSelector: "#es-cal", calLink: ' . wp_json_encode( $cal_link ) . ', config: ' . wp_json_encode( $config ) . ' });'
+		. 'Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });';
+	return '<div class="es-portaal">' . $terug . '<div id="es-cal" class="es-cal"></div><script>' . $js . '</script><p><a href="' . esc_url( $fallback ) . '" target="_blank" rel="noopener">Opent de agenda niet? Klik hier.</a></p></div>';
 } );
 
 /** Veld "Cal.com-link" bij Bedrijfsgegevens. */
