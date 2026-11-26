@@ -119,9 +119,17 @@ Removals, Bing Block URLs) noteren en ze bij de herlancering als eerste intrekke
 Nog te doen in Bing Webmaster Tools (inloggen vereist): Configuration → Block URLs → blokkering van
 `https://lotusflow.net/` verwijderen; Sitemaps → `https://lotusflow.net/sitemap.xml` indienen.
 
-Opgemerkt bij Domeinen: lotusflow.net toont "Wordt verlengd op 25 december 2026, automatische verlenging aan" —
-dat is WordPress.com's domeinverbinding als product, niet de domeinnaam bij Vimexx. Nakijken onder Upgrades →
-Aankopen of daar een bedrag aan hangt.
+Opgemerkt bij Domeinen: lotusflow.net toont "Wordt verlengd op 25 december 2026" — dat is WordPress.com's
+domeinverbinding als product (Upgrades → Aankopen: "Inbegrepen bij abonnement", €0), niet de domeinnaam bij Vimexx.
+
+**Kosten en einddatum (beslist 26 nov 2026):** WordPress.com Premium loopt **maandelijks aan € 18 excl. btw**
+(niet de jaarprijs van ca. $8/maand uit de eerdere vergelijking). Vandaag verlengd tot 26 december 2026;
+automatische verlenging daarna **uitgezet**. Na 26 december valt de site terug op het gratis plan: domeinverbinding
+weg, eigen thema en plugins verwijderd, 13 GB opslag weg. Alles staat op GitHub; herbouwen = thema opnieuw via de
+thema-editor + pagina's uit de patronen (zie README). Wie de demo langer wil, moet vóór 26 december verlengen.
+
+**Agenda:** 3 december 2026 — in WordPress.com → Instellingen → Zichtbaarheid site de twee vinkjes
+("Zoekmachines ontmoedigen", "Voorkom delen door derden") **terug aan** (demo uit Google en AI-crawlers).
 
 ### Oorspronkelijke instructie (geschreven vóór de verificatie)
 
