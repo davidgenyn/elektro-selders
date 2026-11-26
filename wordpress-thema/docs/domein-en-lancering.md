@@ -94,7 +94,36 @@ Let op: op het tabblad General staat alleen "Upgrade"; de downgrade-link staat o
 "Delete payment method". Gedaan op 25 nov 2026 (door David, in het david.genyn-profiel).
 (Een site verwijderen: Site configuration → General → Danger zone → Delete site. Niet gedaan.)
 
-## Na de verificatie: primair domein en vindbaarheid
+## Na de verificatie: primair domein en vindbaarheid (gedaan 26 nov 2026)
+
+Verificatie was op 26 nov om 12:24 volledig ("Actief", drie records "Geverifieerd"), ca. 20 uur na de DNS-wijziging.
+
+![Primair domein gewijzigd](domein/08_primair_domein.jpg)
+
+Gedaan op 26 nov:
+1. WordPress.com → Domeinen → **Primaire websiteadres wijzigen** → lotusflow.net → Adres wijzigen.
+   Melding: "alle domeinen verwijzen door naar lotusflow.net". Het wpcomstaging-adres stuurt nu door.
+2. Instellingen → Zichtbaarheid site: WordPress.com had de twee vinkjes zelf al uitgezet bij het wisselen van het
+   primaire adres; `robots.txt` op lotusflow.net is nu normaal (`Disallow: /wp-admin/`) en Jetpack noemt er zijn
+   sitemap `https://lotusflow.net/sitemap.xml` in. (Beslissing: eerst een week vindbaar, dan terug aan.)
+3. Search Console (domein-property lotusflow.net, bestond nog van de Decap-demo): sitemap
+   `https://lotusflow.net/sitemap.xml` opnieuw ingediend — zelfde URL als vroeger, dus Google leest hem vers.
+4. Search Console → Removals: het verzoek "Remove entire site" van 18 nov (afbouw Decap-demo) stond nog op
+   "Temporarily removed" en zou de site zes maanden uit Google houden → **Cancel request**. Status "Request canceled".
+
+![Verwijderingsverzoek geannuleerd](domein/09_search_console_removal_geannuleerd.jpg)
+
+Les: bij het afbouwen van een demo op een domein dat later hergebruikt wordt, de verwijderingsverzoeken (Google
+Removals, Bing Block URLs) noteren en ze bij de herlancering als eerste intrekken.
+
+Nog te doen in Bing Webmaster Tools (inloggen vereist): Configuration → Block URLs → blokkering van
+`https://lotusflow.net/` verwijderen; Sitemaps → `https://lotusflow.net/sitemap.xml` indienen.
+
+Opgemerkt bij Domeinen: lotusflow.net toont "Wordt verlengd op 25 december 2026, automatische verlenging aan" —
+dat is WordPress.com's domeinverbinding als product, niet de domeinnaam bij Vimexx. Nakijken onder Upgrades →
+Aankopen of daar een bedrag aan hangt.
+
+### Oorspronkelijke instructie (geschreven vóór de verificatie)
 
 Zolang het primaire domein het wpcomstaging-adres is, staan in WordPress.com → Instellingen →
 Zichtbaarheid site de vinkjes **"Zoekmachines ontmoedigen"** en **"Voorkom delen door derden"** vast aan
