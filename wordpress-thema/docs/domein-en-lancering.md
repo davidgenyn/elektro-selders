@@ -116,8 +116,13 @@ Gedaan op 26 nov:
 Les: bij het afbouwen van een demo op een domein dat later hergebruikt wordt, de verwijderingsverzoeken (Google
 Removals, Bing Block URLs) noteren en ze bij de herlancering als eerste intrekken.
 
-Nog te doen in Bing Webmaster Tools (inloggen vereist): Configuration → Block URLs → blokkering van
-`https://lotusflow.net/` verwijderen; Sitemaps → `https://lotusflow.net/sitemap.xml` indienen.
+5. Bing Webmaster Tools (login: Google-account lotusflow.contact@gmail.com): **Configuration → Block URLs** →
+   de blokkering van `https://lotusflow.net/` (18 nov, Directory) via ⋯ → Delete → bevestigen ("Block request deleted
+   successfully"). **Sitemaps → Submit sitemap** → `https://lotusflow.net/sitemap.xml` (stond er al van 11 nov; opnieuw
+   ingediend, status Processing).
+
+![Bing: blokkering verwijderd](domein/10_bing_block_verwijderd.jpg)
+![Bing: sitemap ingediend](domein/11_bing_sitemap.jpg)
 
 Opgemerkt bij Domeinen: lotusflow.net toont "Wordt verlengd op 25 december 2026" — dat is WordPress.com's
 domeinverbinding als product (Upgrades → Aankopen: "Inbegrepen bij abonnement", €0), niet de domeinnaam bij Vimexx.
