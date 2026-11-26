@@ -1,4 +1,4 @@
-# WordPress-thema "Elektro Selders" v2.5 (Weblotus)
+# WordPress-thema "Elektro Selders" v2.6 (Weblotus)
 
 Klassiek WordPress-thema voor klantsites die de klant zelf bewerkt. Staat sinds 25 nov 2026 op de
 WordPress.com-site van Elektro Selders (`famous-pirate-blizzard.wpcomstaging.com`, plan Premium), waaraan
@@ -25,7 +25,7 @@ wordt niet meer gebruikt; die code blijft als archief in de hoofdmap van deze re
 
 ## Bestanden
 ```
-style.css       huisstijl (v2.5)
+style.css       huisstijl (v2.6)
 functions.php   alles in één bestand: setup, Bedrijfsgegevens, rol Klant, sjablonen + FAQ, SEO + FAQPage
 header.php, footer.php, page.php, index.php, single.php, 404.php, logo.png
 docs/domein-en-lancering.md   domein koppelen, DNS bij Vimexx, lanceren, Netlify stopzetten (met screenshots)

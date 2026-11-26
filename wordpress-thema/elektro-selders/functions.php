@@ -7,7 +7,7 @@
  * - SEO-basis en schema.org (inc/seo.php)
  */
 
-define( 'ES_THEME_VERSION', '2.5' );
+define( 'ES_THEME_VERSION', '2.6' );
 
 
 function es_setup() {
@@ -620,6 +620,7 @@ add_filter( 'document_title_separator', function () { return '|'; } );
 add_filter( 'document_title_parts', function ( $parts ) {
 	if ( es_yoast_actief() ) { return $parts; }
 	$parts['site'] = es_info( 'naam' );
+	unset( $parts['tagline'] ); // WordPress voegt op de voorpagina zelf de slogan toe; dat doen wij al
 	if ( is_front_page() ) { $parts['title'] = es_info( 'slogan' ); }
 	return $parts;
 } );

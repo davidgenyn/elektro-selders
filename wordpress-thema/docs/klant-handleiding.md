@@ -14,6 +14,9 @@ voettekst, nieuwe functies — doet Weblotus. Zo kan er niets kapotgaan.
 2. U ziet eerst een blauwe knop "Login met WordPress.com". Klik **niet** daarop, maar op de link eronder:
    **"Login met gebruikersnaam en wachtwoord"**.
 3. Vul uw gebruikersnaam (`bea`) en wachtwoord in, los het rekensommetje op en klik **Inloggen**.
+   Soms toont de site daarna nog eens een rekensommetje ("Los de rekenoefening op om te bewijzen dat je geen
+   robot bent") en vraagt hij uw wachtwoord opnieuw. Dat is de beveiliging tegen inbraakpogingen (Jetpack) en
+   hoort zo; vul het sommetje in en log opnieuw in. Hetzelfde kan gebeuren voor klanten die inloggen op Mijn Elektro.
 4. U komt op uw dashboard.
 
 ![Dashboard van de klant](klant/01_dashboard.jpg)
